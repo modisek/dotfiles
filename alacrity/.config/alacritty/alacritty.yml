@@ -1,0 +1,101 @@
+window:
+  padding:
+    x: 4
+    y: 4
+env:
+  TERM: alacritty
+
+font:
+  normal:
+    family: FantasqueSansMono Nerd Font
+    style: Medium
+    family: nonicon 
+
+  bold:
+    family: FantasqueSansMono Nerd Font
+    style: Bold
+
+  italic:
+    family: FantasqueSansMono Nerd Font
+    style: Italic
+
+  bold_italic:
+    family: FantasqueSansMono Nerd Font
+    style: Bold Italic
+
+  
+draw_bold_text_with_bright_colors: false
+
+# Base16 Eighties 256 - alacritty color config
+# Chris Kempson (http://chriskempson.com)
+colors:
+  # Default colors
+  primary:
+    background: '0x2d2d2d'
+    #'0x2d2d2d'
+    #'0x23222b'
+  foreground: '0xd3d0c8'
+
+  # Colors the cursor will use if `custom_cursor_colors` is true
+  cursor:
+    text: '0x2d2d2d'
+    cursor: '0xd3d0c8'
+
+  # Normal colors
+  normal:
+    black:   '0x2d2d2d'
+    red:     '0xf2777a'
+    green:   '0x99cc99'
+    yellow:  '0xffcc66'
+    blue:    '0x6699cc'
+    magenta: '0xcc99cc'
+    cyan:    '0x66cccc'
+    white:   '0xd3d0c8'
+
+  # Bright colors
+  bright:
+    black:   '0x747369'
+    red:     '0xf2777a'
+    green:   '0x99cc99'
+    yellow:  '0xffcc66'
+    blue:    '0x6699cc'
+    magenta: '0xcc99cc'
+    cyan:    '0x66cccc'
+    white:   '0xf2f0ec'
+
+
+   
+
+selection:
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+  save_to_clipboard: false
+
+cursor:
+  style:
+    shape: Block
+    blinking: Always
+  vi_mode_style: None
+  unfocused_hollow: true
+  thickness: 0.15
+  blink_interval: 600
+
+live_config_reload: true
+
+# shell:
+#   program: /usr/bin/zsh
+#   args:
+#     - --login
+#
+working_directory: None
+alt_send_esc: true
+
+mouse:
+  double_click: { threshold: 300 }
+  triple_click: { threshold: 300 }
+
+  hide_when_typing: false
+font:
+  normal:
+    family: FantasqueSansMono Nerd Font 
+  size: 12
+

@@ -1,0 +1,357 @@
+#              _       _
+#             | |     | |
+#  _ __   ___ | |_   _| |__   __ _ _ __
+# | '_ \ / _ \| | | | | '_ \ / _` | '__|
+# | |_) | (_) | | |_| | |_) | (_| | |
+# | .__/ \___/|_|\__, |_.__/ \__,_|_|
+# | |             __/ |
+# |_|            |___/
+#
+
+# vim:ft=dosini
+
+# ======================================== COLORS
+[colors]
+background = #cf2a2426
+background-alt  = #a89984
+foreground      = #cfffffff
+foreground-alt  = #00add9
+alpha           = #00000000
+red             = #cc241d
+white           = #FFFAEE
+black = "#24272a"
+green ="#98C379"
+yellow = "#E5C07B"
+blue = "#61AFEF"
+magenta = "#C678DD"
+cyan = "#56B6C2"
+
+clear = "#00000000"
+
+urgent = ${colors.red}
+accent = #cc99cc
+
+# ======================================== BARS
+[bar/main]
+
+
+height = 30
+width = 100%
+
+padding-left = 3
+padding-right = 3
+
+
+module-margin-left = 5
+module-margin-center = 5
+
+foreground = ${colors.foreground}
+background = ${colors.background}
+
+fixed-center = true
+
+line-size = 0
+
+tray-position = right
+
+font-0 = "Product Sans:pixelsize=10:weight=regular;2"
+font-1 = "Stick:pixelsize=13;2"
+font-2 = "Material Design Icons:size=10;3"
+font-7 = FontAwesome:fontformat=truetype:size=12;1
+font-3 = Font Awesome 5 Free:style=Regular:pixelsize=8;1
+font-4 = Font Awesome 5 Free:style=Solid:pixelsize=8;1
+font-5 = Font Awesome 5 Brands:pixelsize=8;1
+font-8 = sm4tik:pixelsize=10;1
+
+wm-restack = i3
+
+modules-left =date mpd 
+modules-center =i3 
+modules-right =  volume battery powermenu
+
+[bar/laptop]
+inherit = bar/main
+
+modules-right = volume battery sep
+
+# ======================================== MODULES
+[module/i3]
+type = internal/i3
+pin-workspaces = true
+wrapping-scroll = false
+format = <label-state> <label-mode>
+
+ws-icon-0 = 1;一
+ws-icon-1 = 2;二
+ws-icon-2 = 3;三
+ws-icon-3 = 4;四
+ws-icon-4 = 5;五
+ws-icon-5 = 6;六
+ws-icon-6 = 7;七
+ws-icon-7 = 8;八
+ws-icon-8 = 9;九
+ws-icon-9 = 10;十
+
+label-focused = "%icon%"
+label-focused-foreground = "#b8865f"
+label-focused-background = ${colors.background}
+label-focused-padding = 2
+
+label-unfocused = "%icon%"
+label-unfocused-foreground = ${colors.foreground}
+label-unfocused-background = ${colors.background}
+label-unfocused-padding = 2
+
+label-visible = "%icon%"
+label-visible-padding = 2
+
+label-urgent = "%icon%"
+label-urgent-foreground = ${colors.urgent}
+label-urgent-background = ${colors.background}
+label-urgent-padding = 2
+
+label-mode = "%mode%"
+label-mode-padding = 2
+label-mode-foreground = ${colors.urgent}
+
+[module/xwindow]
+type = internal/xwindow
+label = %title%
+label-maxlen = 100
+label-underline = ${colors.accent}
+
+[module/clock]
+type = internal/date
+label = %time%
+
+time = %H:%M
+
+format-prefix = "󰥔  "
+
+[module/date]
+type = internal/date
+label = %date%
+
+date = %a, %d %B %Y
+date-alt  = %H:%M %p
+
+#format-prefix = "󰃭  "
+
+[module/backlight]
+type = internal/backlight
+# ls -1 /sys/class/backlight
+card = amdgpu_bl0
+label = %percentage%%
+
+format-prefix = "󰃟  "
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC
+full-at = 97
+
+format-full-background = ${colors.background}
+format-charging-background = ${colors.background}
+format-charging = "⁣   <animation-charging> <label-charging>"
+format-charging-underline = #ffb52a
+
+format-charging-suffix = "   "
+
+format-discharging-background = ${colors.background}
+format-discharging = "⁣  <ramp-capacity> <label-discharging>  "
+format-discharging-underline = ${self.format-charging-underline}
+
+format-full = 
+format-full-prefix-foreground = ${colors.foreground}
+format-full-underline = ${self.format-charging-underline}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+ramp-capacity-foreground = ${colors.foreground}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-foreground = ${colors.foreground}
+animation-charging-framerate = 750
+
+[module/powermenu]
+type = custom/menu
+
+format-spacing = 1
+
+label-open = "      "
+label-open-background = ${colors.background}
+label-open-foreground = ${colors.foreground}
+label-close = "    cancel   "
+label-close-background = ${colors.background}
+label-close-foreground = ${colors.foreground}
+label-separator = " "
+label-separator-foreground = ${colors.foreground}
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = "power off   "
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = reboot
+
+menu-2-0 = power off
+menu-2-0-exec =  poweroff
+menu-2-1 = cancel
+menu-2-1-exec = menu-open-0
+
+[module/volume]
+type = internal/pulseaudio
+format-volume = <label-volume>
+#<bar-volume>
+
+interval = 2
+
+label-volume = %percentage%%
+format-volume-prefix = "󰕾  "
+
+bar-volume-width = 5
+bar-volume-gradient = false
+
+bar-volume-indicator =
+
+bar-volume-fill = ━
+bar-volume-fill-foreground = ${colors.blue}
+
+bar-volume-empty = ━
+
+click-right = pavucontrol
+
+label-muted = Muted
+format-muted-prefix = "󰖁  "
+format-muted-foreground = ${colors.urgent}
+
+[module/spotify]
+type = custom/script
+exec = ~/.config/polybar/scripts/song.sh 2>/dev/null || echo "Not running"
+interval = 1
+tail = true
+
+format-prefix = "󰓇  "
+format-prefix-foreground = ${colors.green}
+
+[module/cpu]
+type = internal/cpu
+
+interval = 3
+format = <bar-load>
+
+bar-load-indicator =
+bar-load-fill = ━
+bar-load-empty = ━
+
+bar-load-fill-foreground = ${colors.cyan}
+
+bar-load-width = 7
+
+format-prefix = "󰌣  "
+
+[module/memory]
+type = internal/memory
+
+interval = 3
+format = <bar-used>
+
+bar-used-indicator =
+bar-used-fill = ━
+bar-used-empty = ━
+
+bar-used-fill-foreground = ${colors.magenta}
+
+bar-used-width = 7
+
+format-prefix = "󰍛  "
+
+[module/wlan]
+type = internal/network
+interface = wlo1
+interval = 3.0
+
+format-connected = <label-connected>
+format-connected-prefix = "󰤨  "
+label-connected = %essid%
+
+format-disconnected = "󰤮 No Connection"
+
+[module/sep]
+type = custom/text
+content = |
+
+[module/prev]
+type = custom/text
+content = %{A1:playerctl prev:}Prev%{A}
+
+content-padding = 1
+content-foreground = ${colors.accent}
+content-background = ${colors.background}
+
+[module/play-pause]
+type = custom/text
+content = %{A1:playerctl play-pause:}Play%{A}
+
+content-padding = 1
+content-foreground = ${colors.accent}
+content-background = ${colors.background}
+
+[module/next]
+type = custom/text
+content = %{A1:playerctl next:}Next%{A}
+
+content-padding = 1
+content-foreground = ${colors.accent}
+content-background = ${colors.background}
+
+[module/music_i]
+type = custom/text
+content = "  "
+
+content-foreground = ${colors.accent}
+content-background = ${colors.background}
+
+[module/music]
+type = custom/script
+exec = ~/.config/polybar/scripts/music
+label = %output:0:40:...%
+
+label-foreground = ${colors.foreground}
+label-background = ${colors.background}
+label-padding = 1
+
+
+
+
+[module/mpd]
+type = internal/mpd
+host = 127.0.0.1
+port = 6600
+
+format-online = %{A1:st -c music -e ncmpcpp:}<label-song>%{A}
+format-online-padding = 1
+
+format-offline = <''>
+format-offline-padding = 1
+
+label-offline = ""
+label-song = "%artist% - %title%"
+
+label-song-maxlen = 30
+label-song-ellipsis = true
+
+format-online-background = ${colors.background}
+format-online-foreground = ${colors.foreground}

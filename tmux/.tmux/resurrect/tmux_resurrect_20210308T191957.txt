@@ -1,0 +1,21 @@
+pane	0	0	:bash	1	:*	0	:/home/nerdroid	0	nvim	:/tmp/.mount_nvimGZ4eYw/usr/bin/nvim /home/nerdroid/.tmux.conf
+pane	0	0	:bash	1	:*	1	:/home/nerdroid	1	bash	:
+pane	4	0	:nvim	1	:*	0	:/home/nerdroid	1	nvim	:/tmp/.mount_nvimeDezOr/usr/bin/nvim
+/tmp/.mount_nvimnIOEgc/usr/bin/nvim
+/tmp/.mount_nvim3dGgX9/usr/bin/nvim
+/tmp/.mount_nvimar96eb/usr/bin/nvim dev.yaml
+/tmp/.mount_nvim2BnGo0/usr/bin/nvim /home/nerdroid/.config/nvim/init.vim
+pane	5	0	:nvim	1	:*	0	:/home/nerdroid/.tmux/plugins	1	nvim	:/tmp/.mount_nvimThRJis/usr/bin/nvim /home/nerdroid/.config/alacritty/alacritty.yml
+pane	new_prj-3	0	:bash	1	:*	0	:/home/nerdroid	1	bash	:
+pane	proj-1	0	:bash	1	:*	0	:/home/nerdroid/Dotfiles	0	nvim	:/tmp/.mount_nvimpQVRuk/usr/bin/nvim autoload
+pane	proj-1	0	:bash	1	:*	1	:/home/nerdroid/Dotfiles	1	bash	:ruby /usr/games/lolcat
+man lolcat
+pane	proj-1	0	:bash	1	:*	2	:/home/nerdroid/Dotfiles	0	bash	:
+pane	proj-1	1	:bash	0	:-	0	:/home/nerdroid	1	bash	:
+window	0	0	1	:*	16c5,151x42,0,0[151x21,0,0,0,151x20,0,22,10]
+window	4	0	1	:*	b8e4,85x44,0,0,7
+window	5	0	1	:*	c3e5,68x37,0,0,8
+window	new_prj-3	0	1	:*	caa3,75x39,0,0,6
+window	proj-1	0	1	:*	c273,136x37,0,0[136x17,0,0,1,136x19,0,18{68x19,0,18,2,67x19,69,18,3}]
+window	proj-1	1	0	:-	c841,136x37,0,0,4
+state	4	

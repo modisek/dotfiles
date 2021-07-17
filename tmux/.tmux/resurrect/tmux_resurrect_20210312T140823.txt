@@ -1,0 +1,61 @@
+grouped_session	gatsby-14-20	gatsby-14	:	:0
+grouped_session	react-19	react-0	:	:0
+pane	0	0	:bash	1	:*	0	:/home/nerdroid	0	bash	:
+pane	0	0	:bash	1	:*	1	:/home/nerdroid	1	bash	:
+pane	10	0	:bash	1	:*	0	:/home/nerdroid	1	bash	:
+pane	11	0	:bash	1	:*	0	:/home/nerdroid	1	bash	:
+pane	12	0	:bash	1	:*	0	:/home/nerdroid/.config/i3	0	bash	:
+pane	12	0	:bash	1	:*	1	:/home/nerdroid	1	bash	:
+pane	12	0	:bash	1	:*	2	:/home/nerdroid	0	bash	:
+pane	15	0	:bash	1	:*	0	:/home/nerdroid/Downloads/dotfiles-master/.i3	1	bash	:
+pane	15	0	:bash	1	:*	1	:/home/nerdroid	0	bash	:
+pane	16	0	:bash	1	:*	0	:/home/nerdroid/Downloads/dotfiles-master/.config	1	bash	:
+pane	16	0	:bash	1	:*	1	:/home/nerdroid	0	bash	:
+pane	17	0	:bash	1	:*	0	:/home/nerdroid/Downloads/dotfiles-master/.config	1	bash	:
+pane	17	0	:bash	1	:*	1	:/home/nerdroid	0	bash	:
+pane	21	0	:bash	1	:*	0	:/home/nerdroid/Documents/Learn/experiment	0	nvim	:/tmp/.mount_nvimt7Qnuu/usr/bin/nvim .
+pane	21	0	:bash	1	:*	1	:/home/nerdroid	0	node	:node
+pane	21	0	:bash	1	:*	2	:/home/nerdroid/Documents/Learn/experiment	0	node	:node /usr/local/bin/nodemon start
+pane	21	0	:bash	1	:*	3	:/home/nerdroid	1	bash	:w3m http://localhost:3000
+w3m http://localhost:3000/api/timestamp
+pane	4	0	:nvim	1	:*	0	:/home/nerdroid/Projects/learnThings	1	bash	:
+pane	5	0	:nvim	1	:*	0	:/home/nerdroid/.tmux/plugins	1	bash	:
+pane	6	0	:nvim	1	:*	0	:/home/nerdroid	1	bash	:
+pane	7	0	:nvim	1	:*	0	:/home/nerdroid/Documents/Java	1	bash	:
+pane	7	1	:bash	0	:-	0	:/home/nerdroid	1	bash	:
+pane	8	0	:nvim	1	:*	0	:/home/nerdroid/Desktop/mugen\ m2	0	bash	:
+pane	8	0	:nvim	1	:*	1	:/home/nerdroid	1	bash	:
+pane	9	0	:node	1	:*	0	:/home/nerdroid/Documents/Learn/experiment	0	bash	:
+pane	9	0	:node	1	:*	1	:/home/nerdroid/Documents/Learn/experiment	1	bash	:
+pane	9	0	:node	1	:*	2	:/home/nerdroid/Documents/Learn/experiment	0	bash	:
+pane	default	0	:bash	1	:*	0	:/tmp	1	top	:top
+pane	gatsby-14	0	:bash	1	:*	0	:/home/nerdroid/Documents/Learn/experiment	0	bash	:
+pane	gatsby-14	0	:bash	1	:*	1	:/home/nerdroid	1	alsamixer	:alsamixer
+pane	new_prj-3	0	:bash	1	:*	0	:/home/nerdroid	1	bash	:
+pane	proj-1	0	:bash	1	:*	0	:/home/nerdroid/Dotfiles	0	bash	:
+pane	proj-1	0	:bash	1	:*	1	:/home/nerdroid/Dotfiles	1	bash	:
+pane	proj-1	0	:bash	1	:*	2	:/home/nerdroid/Dotfiles	0	bash	:
+pane	proj-1	1	:bash	0	:-	0	:/home/nerdroid	1	bash	:
+pane	react-0	0	:bash	1	:*	0	:/home/nerdroid/Projects/react	1	bash	:
+window	0	0	1	:*	85ff,170x42,0,0[170x20,0,0,1,170x21,0,21,2]
+window	10	0	1	:*	b440,170x42,0,0,3
+window	11	0	1	:*	b441,170x42,0,0,4
+window	12	0	1	:*	abb6,170x42,0,0{85x42,0,0,5,84x42,86,0[84x19,86,0,6,84x22,86,20,7]}
+window	15	0	1	:*	96db,170x42,0,0{85x42,0,0,8,84x42,86,0,9}
+window	16	0	1	:*	0de9,170x42,0,0{85x42,0,0,10,84x42,86,0,11}
+window	17	0	1	:*	0dee,170x42,0,0{85x42,0,0,12,84x42,86,0,13}
+window	21	0	1	:*	1cd6,170x42,0,0{85x42,0,0[85x30,0,0,36,85x11,0,31,38],84x42,86,0[84x21,86,0,37,84x20,86,22,39]}
+window	4	0	1	:*	5a53,170x42,0,0,14
+window	5	0	1	:*	5a54,170x42,0,0,15
+window	6	0	1	:*	5a55,170x42,0,0,16
+window	7	0	1	:*	5a56,170x42,0,0,17
+window	7	1	0	:-	5a57,170x42,0,0,18
+window	8	0	1	:*	d26a,170x42,0,0{86x42,0,0,19,83x42,87,0,20}
+window	9	0	1	:*	09d5,170x42,0,0{103x42,0,0[103x19,0,0,21,103x22,0,20,22],66x42,104,0,23}
+window	default	0	1	:*	da53,170x42,0,0,24
+window	gatsby-14	0	1	:*	cdfb,170x42,0,0{85x42,0,0,27,84x42,86,0,28}
+window	new_prj-3	0	1	:*	da58,170x42,0,0,29
+window	proj-1	0	1	:*	b4ae,170x42,0,0[170x19,0,0,30,170x22,0,20{86x22,0,20,31,83x22,87,20,32}]
+window	proj-1	1	0	:-	5a53,170x42,0,0,33
+window	react-0	0	1	:*	b43d,170x42,0,0,0
+state	21	

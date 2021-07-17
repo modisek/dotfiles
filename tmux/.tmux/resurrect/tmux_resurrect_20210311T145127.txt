@@ -1,0 +1,34 @@
+pane	0	0	:bash	1	:*	0	:/home/nerdroid	0	bash	:
+pane	0	0	:bash	1	:*	1	:/home/nerdroid	1	bash	:
+pane	10	0	:bash	1	:*	0	:/home/nerdroid	1	bash	:
+pane	4	0	:nvim	1	:*	0	:/home/nerdroid/Projects/learnThings	1	bash	:
+pane	5	0	:nvim	1	:*	0	:/home/nerdroid/.tmux/plugins	1	bash	:
+pane	6	0	:nvim	1	:*	0	:/home/nerdroid	1	bash	:
+pane	7	0	:nvim	1	:*	0	:/home/nerdroid/Documents/Java	1	bash	:
+pane	7	1	:bash	0	:-	0	:/home/nerdroid	1	bash	:
+pane	8	0	:nvim	1	:*	0	:/home/nerdroid/Desktop/mugen\ m2	0	bash	:
+pane	8	0	:nvim	1	:*	1	:/home/nerdroid	1	bash	:
+pane	9	0	:node	1	:*	0	:/home/nerdroid/Documents/Learn/experiment	0	nvim	:/tmp/.mount_nvimj9XGas/usr/bin/nvim .
+pane	9	0	:node	1	:*	1	:/home/nerdroid/Documents/Learn/experiment	1	node	:node
+pane	9	0	:node	1	:*	2	:/home/nerdroid/Documents/Learn/experiment	0	node	:node /usr/local/bin/nodemon start
+pane	default	0	:bash	1	:*	0	:/tmp	1	bash	:top
+/tmp/.mount_nvim4sSE0b/usr/bin/nvim /home/nerdroid/.bashrc
+pane	new_prj-3	0	:bash	1	:*	0	:/home/nerdroid	1	bash	:
+pane	proj-1	0	:bash	1	:*	0	:/home/nerdroid/Dotfiles	0	bash	:
+pane	proj-1	0	:bash	1	:*	1	:/home/nerdroid/Dotfiles	1	bash	:
+pane	proj-1	0	:bash	1	:*	2	:/home/nerdroid/Dotfiles	0	bash	:
+pane	proj-1	1	:bash	0	:-	0	:/home/nerdroid	1	bash	:
+window	0	0	1	:*	85ff,151x42,0,0[151x20,0,0,1,151x21,0,21,2]
+window	10	0	1	:*	5c58,151x43,0,0,19
+window	4	0	1	:*	b440,151x42,0,0,3
+window	5	0	1	:*	b441,151x42,0,0,4
+window	6	0	1	:*	b442,151x42,0,0,5
+window	7	0	1	:*	b443,151x42,0,0,6
+window	7	1	0	:-	b444,151x42,0,0,7
+window	8	0	1	:*	9bcb,151x42,0,0{76x42,0,0,8,74x42,77,0,9}
+window	9	0	1	:*	1120,151x43,0,0{93x43,0,0[93x21,0,0,16,93x21,0,22,18],57x43,94,0,17}
+window	default	0	1	:*	674f,151x39,0,0,10
+window	new_prj-3	0	1	:*	5a50,151x42,0,0,11
+window	proj-1	0	1	:*	7449,151x42,0,0[151x19,0,0,12,151x22,0,20{76x22,0,20,13,74x22,77,20,14}]
+window	proj-1	1	0	:-	5a54,151x42,0,0,15
+state	10	

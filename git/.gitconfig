@@ -1,0 +1,15 @@
+[user]
+	name = kgosi
+	email = warlockmodise@gmail.com
+[color]
+	interactive = true
+	branch = true
+	status = true
+[alias]
+	a = add --all
+	c = commit 
+	pom = push origin master
+	s = status
+	l = log
+	cb = checkout -b
+	b = branch
