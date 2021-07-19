@@ -5,8 +5,7 @@ local bo = vim.bo
 local g = vim.g
 local cmd = vim.cmd
 local opt = vim.opt
-cmd("set completeopt-=preview")
-cmd("set omnifunc=v:lua.vim.lsp.omnifunc")
+
 cmd("set re=0")
 cmd("set noshowmode")
 cmd("set noruler")

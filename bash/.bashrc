@@ -61,8 +61,8 @@ fi
 
 if [ "$color_prompt" = yes ]; then
    
-    #PS1='${debian_chroot:+($debian_chroot)}kgosi\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1='\[\033[01;33m\][\W]─$(__git_ps1 "(%s)")── ─\[\033[00m\] '
+    PS1='${debian_chroot:+($debian_chroot)}kgosi\[\033[01;34m\]\w\[\033[00m\]\$ '
+    #PS1='\[\033[01;33m\][\W]─$(__git_ps1 "(%s)")── ─\[\033[00m\] '
     
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
@@ -122,7 +122,6 @@ fi
 # enable control-s and control-q
 stty -ixon
 
-. /usr/share/autojump/autojump.sh
 
 # Up Arrow
 bind '"\e[A": history-search-backward'
@@ -141,3 +140,15 @@ export SSH_AUTH_SOCK=~/.ssh/socket
 
 export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
 #colorscript exec alpha
+
+export PATH=~/.nvm/versions/node/v16.5.0/bin:$PATH
+# Load NVM
+
+[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh" --no-use
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+eval "$(zoxide init bash)"

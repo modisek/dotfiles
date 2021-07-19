@@ -45,17 +45,11 @@ export EDITOR="$VISUAL"
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/scripts:$PATH
 export PATH=$HOME/.deno/bin:$PATH
-export PATH=$HOME/palemoon:$PATH
 
 export BROWSER=firefox
 # Add default node to path
-export PATH=~/.nvm/versions/node/v14.16.0/bin:$PATH
-# Load NVM
-export NVM_DIR=~/.nvm
-[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh" --no-use
-
 
 setxkbmap -option 'caps:ctrl_modifier' && xcape -e 'Caps_Lock=Escape' &
 xbindkeys -p &
 
-alias luamake=/home/nerdroid/lua-language-server/3rd/luamake/luamake
+nitrogen --restore

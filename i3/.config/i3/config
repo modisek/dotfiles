@@ -1,55 +1,21 @@
 set $mod Mod4
 font pango:monospace 8
-exec --no-startup-id volumeicon
-exec --no-startup-id blueman-tray 
-exec --no-startup-id nm-applet 
-#exec --no-startup-id compton 
-exec_always --no-startup-id redshift
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-#exec --no-startup-id polybar main
-exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
-exec --no-startup-id nitrogen --restore
-exec --no-startup-id mpd 2>&1>/dev/null && mpc add / &
-#exec --no-startup-id spotify
 exec_always --no-startup-id autotiling
 #for_window [class="Spotify"] move window scratchpad
 
 set $refresh_i3status killall -SIGUSR1 i3status
 
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_i3status
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
-bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 bindsym F6 exec xinput set-prop 12 "Device Enabled" 0
 bindsym Ctrl + F6 exec xinput set-prop 12 "Device Enabled" 1
 # Media player controls
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioPause exec playerctl pause
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPrev exec playerctl previous
-bindsym Ctrl + XF86AudioPlay exec mpc toggle
-bindsym Ctrl + XF86AudioPrev  exec mpc prev
-bindsym Ctrl + XF86AudioNext exec mpc next
-# Screen brightness controls
-bindsym XF86MonBrightnessUp exec light -A 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec light -U 10 # decrease screen brightness
-bindsym Ctrl+XF86MonBrightnessUp exec light -A 2 # increase screen brightness
-bindsym Ctrl+XF86MonBrightnessDown exec light -U 2 # decrease screen brightness
-# External monitor brightness controls
-bindsym Shift+XF86MonBrightnessUp exec xrandr --output DP-1 --brightness 1
-bindsym Shift+XF86MonBrightnessDown exec xrandr --output DP-1 --brightness 1
-bindsym $mod + c exec "rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'"
-#Enable natural scrolling
-exec --no-startup-id synclient HorizEdgeScroll=0 VertEdgeScroll=0 HorizTwoFingerScroll=1 VertTwoFingerScroll=1 VertScrollDelta=-90 HorizScrollDelta=-90
 
-exec --no-startup-id "/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh; export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK"
 #emojiAS
 bindsym $mod+i exec ~/scripts/emoji_picker  
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 # start a terminal
-set $myTerm st
+set $myTerm urxvt
 bindsym $mod+Return exec $myTerm
 bindsym F10 exec polybar main 
 
@@ -58,11 +24,9 @@ bindsym F9 exec compton
 bindsym Ctrl + F9 exec killall compton
 # kill focused window
 bindsym $mod+x kill
-bindsym $mod+Shift + m exec alacritty -e ncmpcpp
-bindsym $mod+y exec alacritty -e ranger
-bindsym $mod + Shift + g exec grabc
+
 # start dmenu (a program launcher)
-bindsym $mod+d exec dmenu_run -b
+
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -121,13 +85,8 @@ for_window [window_role="pop-up"] border pixel 1
 for_window [window_role="task_dialog"] border pixel 1
 # focus the child container
 #bindsym $mod+d focus child
-bindsym $mod + b exec firefox
-bindsym $mod + m exec spotify
-bindsym Shift+$mod+f exec pcmanfm
-bindsym $mod+w exec tabbed -c vimb -e
 bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
-bindsym $mod + n exec alacritty -e nvim
- bindsym $mod+Ctrl+x --release exec --no-startup-id xkill
+
 bindsym $mod+z exec rofi -show drun -show-icons -modi drun
 #assign [class="alacritty" instance="alacritty"] → $ws1
 #assign [class="Pcmanfm"] $ws3

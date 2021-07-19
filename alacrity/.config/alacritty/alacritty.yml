@@ -1,7 +1,7 @@
 window:
   padding:
-    x: 4
-    y: 4
+    x: 2
+    y: 0
 env:
   TERM: alacritty
 
@@ -31,7 +31,7 @@ draw_bold_text_with_bright_colors: false
 colors:
   # Default colors
   primary:
-    background: '0x2d2d2d'
+    background: '0x282120'
     #'0x2d2d2d'
     #'0x23222b'
   foreground: '0xd3d0c8'
@@ -44,13 +44,13 @@ colors:
   # Normal colors
   normal:
     black:   '0x2d2d2d'
-    red:     '0xf2777a'
-    green:   '0x99cc99'
-    yellow:  '0xffcc66'
-    blue:    '0x6699cc'
+    red:     '0xf36870'
+    green:   '0x9ab19a'
+    yellow:  '0xf2e34c'
+    blue:    '0xd3bbdd'
     magenta: '0xcc99cc'
     cyan:    '0x66cccc'
-    white:   '0xd3d0c8'
+    white:   '0xf0f7e0'
 
   # Bright colors
   bright:
@@ -97,5 +97,5 @@ mouse:
 font:
   normal:
     family: FantasqueSansMono Nerd Font 
-  size: 12
+  size: 10.5
 

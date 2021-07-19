@@ -10,18 +10,14 @@ ignore_leading_the = "yes"
 allow_for_physical_item_deletion = "no"
 
 ### Visualizer ###
-visualizer_fifo_path = /tmp/mpd.fifo
 visualizer_output_name = "mpd_visualizer"
 visualizer_in_stereo = "yes"
-visualizer_sync_interval = 30
 
 # █▓▒░ Display Settings
 song_list_format = "{$7%a $6> $5}{%t$6$R$b} [{%l}]"
 song_status_format = "$7%a $6$b> $5%t $6$b> $2%b$6"
 statusbar_color = "black"
 main_window_color = "cyan"
-main_window_highlight_color = "magenta"
-active_column_color = "black"
 header_visibility = "no"
 statusbar_visibility = "yes"
 colors_enabled = "yes"

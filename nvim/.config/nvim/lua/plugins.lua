@@ -43,7 +43,6 @@ paq 'mattn/emmet-vim'
 --paq 'RRethy/vim-hexokinase'
 
 --vim.g.Hexokinase_highlighters = 'virtual'
-paq 'ackyshake/VimCompletesMe'
 --paq 'norcalli/nvim-colorizer.lua'
 paq 'DarwinSenior/nvim-colorizer.lua'
-paq 'vim-scripts/AutoComplPop'
+

@@ -1,17 +1,11 @@
-source ~/Dotfiles/bash/.bash_aliases
+source ~/dotfiles/bash/.bash_aliases
 set fish_greeting
 export BROWSER=firefox
 export EDITOR=nvim
 set -gx TERM xterm-256color
-setxkbmap -option ctrl:nocaps
+
 alias o='xdg-open'
 # make short-pressed Ctrl behave like Escape:
-xcape -e 'Control_L=Escape'
-
-colorscript exec alpha
-
-source ~/.config/fish/fish_prompt.fish
-
 alias vim='nvim'
 # aliases
 
@@ -72,4 +66,9 @@ function peco_select_history
     commandline ''
   end
 end
-if test -f /home/nerdroid/.autojump/share/autojump/autojump.fish; . /home/nerdroid/.autojump/share/autojump/autojump.fish; end
+
+# Generated for envman. Do not edit.
+test -s "$HOME/.config/envman/load.fish"; and source "$HOME/.config/envman/load.fish"
+
+
+zoxide init fish | source

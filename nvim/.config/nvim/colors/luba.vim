@@ -26,7 +26,7 @@
   endif
 "}}}
 " {{{ Colors
-  let s:base00 = ['#23222b', '235']
+  let s:base00 = ['#282120', '235']
   let s:base01 = ['#323232', '237']
   let s:base02 = ['#424242', '240']
   let s:base03 = ['#525252', '243']
@@ -34,15 +34,15 @@
   let s:base05 = ['#727272', '251']
   let s:base06 = ['#929292', '252']
   let s:base07 = ['#d8dee9', '253']
-  let s:red    = ['#ec5f67', '203']
-  let s:orange = ['#ff6633', '209']
-  let s:yellow = ['#ffcc66', '221']
-  let s:green  = ['#99c794', '114']
+  let s:red    = ['#e95670', '203']
+  let s:orange = ['#f36870', '209']
+  let s:yellow = ['#f2e34c', '221']
+  let s:green  = ['#9ab19a', '114']
   let s:cyan   = ['#5fb3b3', '73']
-  let s:blue   = ['#6699cc', '68']
-  let s:purple = ['#b4a4de', '176']
-  let s:brown  = ['#d27b53', '137']
-  let s:white  = ['#eef1ff', '15']
+  let s:blue   = ['#04d4f0', '68']
+  let s:purple = ['#d3bbdd', '176']
+  let s:brown  = ['#fbe5co', '137']
+  let s:white  = ['#f0f7e0', '15']
   let s:none   = ['NONE',    'NONE']
 
 " }}}
@@ -98,8 +98,8 @@ endfunction
   call s:hi('EndOfBuffer',                        s:base05, s:base00, '',          '')
   call s:hi('LineNr',                             s:base03, s:base00, '',          '')
   call s:hi('SignColumn',                         s:base00, s:base00, '',          '')
-  call s:hi('StatusLine',                         s:base01, s:base03, '',          '')
-  call s:hi('StatusLineNC',                       s:base03, s:base01, '',          '')
+  call s:hi('StatusLine',                         s:base00, s:green, '',          '')
+  call s:hi('StatusLineNC',                       s:base00, s:base01, '',          '')
   call s:hi('VertSplit',                          s:base00, s:base02, '',          '')
   call s:hi('ColorColumn',                        '',       s:base01, '',          '')
   call s:hi('CursorColumn',                       '',       s:base01, '',          '')

@@ -6,12 +6,12 @@ alias lr='ls  -R --color'
 alias cat='bat'
 alias install="sudo apt install"
 alias update="sudo apt update"
-alias aliasconf="vim ~/Dotfiles/bash/.bash_aliases"
-alias polybarconf="vim ~/Dotfiles/polybar/.config/polybar/config"
-alias i3conf="vim ~/Dotfiles/i3/.config/i3/config"
-alias bconf="vim ~/Dotfiles/bash/.bashrc"
-alias vimconf="vim ~/Dotfiles/nvim/.config/nvim/init.vim"
-alias so="source ~/Dotfiles/bash/.bashrc"
+alias aliasconf="vim ~/dotfiles/bash/.bash_aliases"
+alias polybarconf="vim ~/dotfiles/polybar/.config/polybar/config"
+alias i3conf="vim ~/dotfiles/i3/.config/i3/config"
+alias bconf="vim ~/dotfiles/bash/.bashrc"
+alias vimconf="vim ~/dotfiles/nvim/.config/nvim/init.vim"
+alias so="source ~/dotfiles/bash/.bashrc"
 alias r="ranger"
 alias c="clear"
 
@@ -26,16 +26,6 @@ alias note='nvim -c :VimwikiMakeDiaryNote'
 alias notes='nvim  -c :VimwikiIndex'
 # cd after mkdir
 
-alias fix_light='sudo chown nerdroid /sys/class/backlight/intel_backlight/brightness'
-
-#function killp (){
-#        kill $(lsof -ti:$@)
-
-#}
-
-#function mcd (){
-
-#mkdir -p $@ && builtin cd $@
-
-#}
-
+alias xi='sudo xbps-install -S'
+alias xr='sudo xbps-remove -R'
+alias xq='xbps-query -Rs'
