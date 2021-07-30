@@ -1,3 +1,19 @@
+
+# export LIBSEAT_BACKEND=logind
+export PGDATA=/home/postgres 
+export QT_QPA_PLATFORMTHEME=gtk
+export DOTS="/home/nerdroid/Dotfiles"
+export TERMINAL="urxvt"
+export PROJ="/home/nerdroid/Projects"
+export JAVA_HOME="/usr/lib/jvm/openjdk11"
+export VISUAL=nvim
+export EDITOR="$VISUAL"
+
+export PATH=$HOME/.cargo/bin:$PATH
+export PATH=$HOME/scripts:$PATH
+export PATH=$HOME/.deno/bin:$PATH
+
+export BROWSER=firefox
 # If not running interactively, don't do anything
 # case $- in
 #     *i*) ;;
@@ -31,14 +47,6 @@ HISTFILESIZE=2000
 #filter history
 export HISTIGNORE="pwd:ls:cd:clear:vim:mv:cp:touch"
 
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
     xterm-color|*-256color) color_prompt=yes;;
@@ -61,7 +69,7 @@ fi
 
 if [ "$color_prompt" = yes ]; then
    
-    PS1='${debian_chroot:+($debian_chroot)}kgosi\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}kgosi\[\033[01;34m\]\w\[\033[00m\]\$'
     #PS1='\[\033[01;33m\][\W]─$(__git_ps1 "(%s)")── ─\[\033[00m\] '
     
 else
@@ -138,17 +146,31 @@ if [ -S ~/.ssh/socket ]; then
 fi
 export SSH_AUTH_SOCK=~/.ssh/socket
 
-export FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{node_modules/*,.git/*}"'
+export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore ~/.ignore --nocolor --hidden -g ""'
 #colorscript exec alpha
 
 export PATH=~/.nvm/versions/node/v16.5.0/bin:$PATH
 # Load NVM
-
-[[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh" --no-use
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Defer initialization of nvm until nvm, node or a node-dependent command is
+# run. Ensure this block is only run once if .bashrc gets sourced multiple times
+# by checking whether __init_nvm is a function.
+# if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(type -t __init_nvm)" = function ]; then
+#   export NVM_DIR="$HOME/.nvm"
+#   [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
+#   declare -a __node_commands=('nvm' 'node' 'npm' 'yarn' 'gulp' 'grunt' 'webpack')
+#   function __init_nvm() {
+#     for i in "${__node_commands[@]}"; do unalias $i; done
+#     . "$NVM_DIR"/nvm.sh
+#     unset __node_commands
+#     unset -f __init_nvm
+#   }
+#   for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
+# fi
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 eval "$(zoxide init bash)"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/kgosi/.sdkman"
+[[ -s "/home/kgosi/.sdkman/bin/sdkman-init.sh" ]] && source "/home/kgosi/.sdkman/bin/sdkman-init.sh"

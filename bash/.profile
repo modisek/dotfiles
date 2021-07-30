@@ -38,7 +38,7 @@ export QT_QPA_PLATFORMTHEME=gtk
 export DOTS="/home/nerdroid/Dotfiles"
 export TERMINAL="urxvt"
 export PROJ="/home/nerdroid/Projects"
-export JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64"
+export JAVA_HOME="/usr/lib/jvm/openjdk11"
 export VISUAL=nvim
 export EDITOR="$VISUAL"
 
@@ -49,7 +49,4 @@ export PATH=$HOME/.deno/bin:$PATH
 export BROWSER=firefox
 # Add default node to path
 
-setxkbmap -option 'caps:ctrl_modifier' && xcape -e 'Caps_Lock=Escape' &
-xbindkeys -p &
 
-nitrogen --restore

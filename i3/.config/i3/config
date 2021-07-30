@@ -15,7 +15,7 @@ bindsym $mod+i exec ~/scripts/emoji_picker
 floating_modifier $mod
 
 # start a terminal
-set $myTerm urxvt
+set $myTerm st
 bindsym $mod+Return exec $myTerm
 bindsym F10 exec polybar main 
 

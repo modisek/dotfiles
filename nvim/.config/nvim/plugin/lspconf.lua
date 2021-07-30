@@ -34,6 +34,15 @@ local mappings = function()
   if client.resolved_capabilities.document_range_formatting then
     buf_set_keymap("v", "<leader>f", "vim.lsp.buf.range_formatting()<CR>", opts)
   end
+
+ if client.resolved_capabilities.code_lens then
+        vim.cmd [[
+          augroup CodeLens
+            au!
+            au CursorHold,CursorHoldI * lua vim.lsp.codelens.refresh()
+          augroup END
+        ]]
+      end
 end
 local custom_on_attach = function(client) 
          if client.config.flags then
@@ -76,12 +85,10 @@ filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "
     root_dir = vim.loop.cwd,
   settings = {
     documentFormatting = true,
-    lint = true
+    lint = true,
+    unstable = true
+  
 
-    },init_options = {
-      enable = true,
-      lint = true,
-      unstable = true
     }
   },
   jdtls = {

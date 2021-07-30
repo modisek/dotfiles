@@ -1,18 +1,16 @@
 alias ..=' cd ..'
-alias la='ls -hap --color'
-alias ls='ls --color'
-alias ll='ls -hpl --color'
-alias lr='ls  -R --color'
+
+alias la='exa -a --icons'
+alias ls='exa  --icons'
+alias ll='exa --long --header --inode --git --icons'
+alias lr='exa -R --icons'
 alias cat='bat'
-alias install="sudo apt install"
-alias update="sudo apt update"
-alias aliasconf="vim ~/dotfiles/bash/.bash_aliases"
-alias polybarconf="vim ~/dotfiles/polybar/.config/polybar/config"
-alias i3conf="vim ~/dotfiles/i3/.config/i3/config"
-alias bconf="vim ~/dotfiles/bash/.bashrc"
-alias vimconf="vim ~/dotfiles/nvim/.config/nvim/init.vim"
+alias aliasconf="nvim ~/dotfiles/bash/.bash_aliases"
+alias polybarconf="nvim ~/dotfiles/polybar/.config/polybar/config"
+alias i3conf="nvim ~/dotfiles/i3/.config/i3/config"
+alias bconf="nvim ~/dotfiles/bash/.bashrc"
+alias vimconf="nvim ~/dotfiles/nvim/.config/nvim/init.vim"
 alias so="source ~/dotfiles/bash/.bashrc"
-alias r="ranger"
 alias c="clear"
 
 #Tmux

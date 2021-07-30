@@ -1,10 +1,8 @@
 local api = vim.api
-local o = vim.o
-local wo = vim.wo
-local bo = vim.bo
+local o = vim.opt
 local g = vim.g
 local cmd = vim.cmd
-local opt = vim.opt
+
 
 cmd("set re=0")
 cmd("set noshowmode")
@@ -25,7 +23,7 @@ o.laststatus = 2
 o.hlsearch = true
 o.incsearch = true
 o.ignorecase = true
-o.scrolloff = 12
+o.scrolloff = 6
 o.timeoutlen = 3000
 o.ttimeoutlen = 100
 cmd("set undodir=~/.nvim/undodir")
@@ -67,13 +65,13 @@ o.background = 'dark'
 g.pumheight = 10
 cmd('set termguicolors')
 -- window-local options
-wo.number = true
-wo.list = true
-wo.wrap = true
-wo.relativenumber = true
+o.number = true
+o.list = true
+o.wrap = true
+o.relativenumber = true
 -- buffer-local options
 --
-bo.expandtab = true
+o.expandtab = true
 
 
 
@@ -108,8 +106,32 @@ end
 
 cmd[[ set statusline=%!luaeval('my_statusline()') ]] 
 
+cmd[[let NERDTreeQuitOnOpen = 1 ]]
+cmd[[let NERDTreeMinimalUI = 1]]
 
+local disabled_built_ins = {
+    "netrw",
+    "netrwPlugin",
+    "netrwSettings",
+    "netrwFileHandlers",
+    "gzip",
+    "zip",
+    "zipPlugin",
+    "tar",
+    "tarPlugin",
+    "getscript",
+    "getscriptPlugin",
+    "vimball",
+    "vimballPlugin",
+    "2html_plugin",
+    "logipat",
+    "rrhelper",
+    "spellfile_plugin",
+    "matchit"
+}
 
+for _, plugin in pairs(disabled_built_ins) do
+    vim.g["loaded_" .. plugin] = 1
+end
 
-
-
+o.lazyredraw = true

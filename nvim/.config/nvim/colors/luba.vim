@@ -9,7 +9,7 @@
   if exists("syntax_on")
     syntax reset
   endif
-  let g:colors_name="OceanicNext"
+  let g:colors_name="luba"
 " }}}
 " {{{ Italics
   let g:oceanic_next_terminal_italic = get(g:, 'oceanic_next_terminal_italic', 0)
@@ -34,14 +34,14 @@
   let s:base05 = ['#727272', '251']
   let s:base06 = ['#929292', '252']
   let s:base07 = ['#d8dee9', '253']
-  let s:red    = ['#e95670', '203']
-  let s:orange = ['#f36870', '209']
-  let s:yellow = ['#f2e34c', '221']
+  let s:red    = ['#d88553', '203']
+  let s:orange = ['#eda644', '209']
+  let s:yellow = ['#eda622', '221']
   let s:green  = ['#9ab19a', '114']
-  let s:cyan   = ['#5fb3b3', '73']
-  let s:blue   = ['#04d4f0', '68']
-  let s:purple = ['#d3bbdd', '176']
-  let s:brown  = ['#fbe5co', '137']
+  let s:cyan   = ['#5f5f88', '73']
+  let s:blue   = ['#5f8787', '68']
+  let s:purple = ['#99bbbb', '176']
+  let s:brown  = ['#fbe5c0', '137']
   let s:white  = ['#f0f7e0', '15']
   let s:none   = ['NONE',    'NONE']
 
@@ -98,7 +98,7 @@ endfunction
   call s:hi('EndOfBuffer',                        s:base05, s:base00, '',          '')
   call s:hi('LineNr',                             s:base03, s:base00, '',          '')
   call s:hi('SignColumn',                         s:base00, s:base00, '',          '')
-  call s:hi('StatusLine',                         s:base00, s:green, '',          '')
+  call s:hi('StatusLine',                         s:base01, s:yellow, '',          '')
   call s:hi('StatusLineNC',                       s:base00, s:base01, '',          '')
   call s:hi('VertSplit',                          s:base00, s:base02, '',          '')
   call s:hi('ColorColumn',                        '',       s:base01, '',          '')
