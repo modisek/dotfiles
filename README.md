@@ -5,3 +5,5 @@ This are my personal dotfiles for all the applications i use
 * i3wm 
 * vim as my editor
 * alacritty as my terminal
+
+![Screenshot](preview.png)
