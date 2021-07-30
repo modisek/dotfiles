@@ -1,9 +1,16 @@
 # Dotfiles
 This are my personal dotfiles for all the applications i use
-###set up 
-*ubuntu minimal install
-* i3wm 
-* vim as my editor
-* alacritty as my terminal
+### The set up currently
 
+* void linux ~~ubuntu minimal~~
+* dwm as the window manager ~~i3wm~~
+* nvim as my editor
+* alacritty/urxvt/st as my terminal emulators
+
+### Other applicatios
+* tmux
+* zathura
+* dunst
+
+### Preview 
 ![Screenshot](preview.png)
