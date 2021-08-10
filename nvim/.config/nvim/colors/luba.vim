@@ -167,9 +167,9 @@ endfunction
 
   " TreeSitter stuff
   call s:hi('TSInclude',                          s:cyan,   '',       '',          '')
-  call s:hi('TSPunctBracket',                     s:cyan,   '',       '',          '')
-  call s:hi('TSPunctDelimiter',                   s:base07, '',       '',          '')
-  call s:hi('TSParameter',                        s:base07, '',       '',          '')
+  call s:hi('TSPunctBracket',                     s:green,   '',       '',          '')
+  call s:hi('TSPunctDelimiter',                   s:green, '',       '',          '')
+  " call s:hi('TSParameter',                        s:base07, '',       '',          '')
   call s:hi('TSType',                             s:blue,   '',       '',          '')
   call s:hi('TSFunction',                         s:yellow,   '',       '',          '')
 
@@ -179,8 +179,8 @@ endfunction
   call s:hi('TSParameter',                        s:yellow, '',       '',          '')
   call s:hi('TSConstructor',                      s:base07, '',       '',          '')
   call s:hi('TSVariable',                         s:base07, '',       '',          '')
-  call s:hi('TSOperator',                         s:base07, '',       '',          '')
-  call s:hi('TSTag',                              s:base07, '',       '',          '')
+  call s:hi('TSOperator',                         s:green, '',       '',          '')
+  call s:hi('TSTag',                              s:yellow, '',       '',          '')
   call s:hi('TSKeyword',                          s:yellow, '',       '',          '')
   call s:hi('TSKeywordOperator',                  s:purple, '',       '',          '')
   call s:hi('TSVariableBuiltin',                  s:red,    '',       '',          '')

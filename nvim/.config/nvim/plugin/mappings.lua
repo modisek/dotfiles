@@ -61,3 +61,32 @@ vim.cmd [[
 ]]
 
 
+vim.cmd[[
+nnoremap Y y$
+]]
+
+
+vim.cmd[[
+nnoremap n nzzzv
+nnoremap N Nnzzzv
+nnoremap J mzJ`z
+]]
+
+vim.cmd[[
+    inoremap , ,<c-g>u
+    inoremap . .<c-g>u
+    inoremap ! !<c-g>u
+    inoremap ? ?<c-g>u
+    inoremap <CR> <CR><c-g>u
+    ]]
+
+    vim.cmd [[
+    vnoremap J :m  '>+1<CR>gv=gv
+    vnoremap K :m  '>-2<CR>gv=gv
+    inoremap <C-j> <esc>:m .+1<CR>==
+    inoremap <C-k> <esc>:m .-2<CR>==
+
+    nnoremap <leader>k :m .-2<CR>==
+    nnoremap <leader>j :m .+1<CR>==
+
+    ]]

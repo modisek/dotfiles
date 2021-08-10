@@ -14,6 +14,26 @@ export PATH=$HOME/scripts:$PATH
 export PATH=$HOME/.deno/bin:$PATH
 
 export BROWSER=firefox
+
+SSH_ENV="$HOME/.ssh/environment"
+
+function start_agent {
+    echo "Initialising new SSH agent..."
+    (umask 066; /usr/bin/ssh-agent > "${SSH_ENV}")
+    . "${SSH_ENV}" > /dev/null
+    /usr/bin/ssh-add;
+}
+
+# Source SSH settings, if applicable
+
+if [ -f "${SSH_ENV}" ]; then
+    . "${SSH_ENV}" > /dev/null
+    ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+        start_agent;
+    }
+else
+    start_agent;
+fi
 # If not running interactively, don't do anything
 # case $- in
 #     *i*) ;;
@@ -22,7 +42,7 @@ export BROWSER=firefox
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-export TERM=rxvt-unicode-256color
+# export TERM=rxvt-unicode-256color
 # append to the history file, don't overwrite it
 shopt -s histappend
 shopt -s expand_aliases
@@ -140,11 +160,6 @@ bind '"\e[B": history-search-forward'
 bind Space:magic-space
 #correct misspeled cd command
 
-if [ -S ~/.ssh/socket ]; then
-    eval $(ssh-agent)
-    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/socket
-fi
-export SSH_AUTH_SOCK=~/.ssh/socket
 
 export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore ~/.ignore --nocolor --hidden -g ""'
 #colorscript exec alpha

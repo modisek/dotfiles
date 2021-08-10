@@ -28,10 +28,12 @@ local mappings = function()
   mapper('n', 'g0', 'vim.lsp.buf.document_symbol()')
   mapper('n', 'gW', 'vim.lsp.buf.workspace_symbol()')
   mapper('n', '<leader>lca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+
  if client.resolved_capabilities.document_formatting then
     buf_set_keymap("n", "<leader>f", "vim.lsp.buf.formatting()<CR>", opts)
   end
-  if client.resolved_capabilities.document_range_formatting then
+
+ if client.resolved_capabilities.document_range_formatting then
     buf_set_keymap("v", "<leader>f", "vim.lsp.buf.range_formatting()<CR>", opts)
   end
 
@@ -43,12 +45,12 @@ local mappings = function()
           augroup END
         ]]
       end
-end
+  end
+
 local custom_on_attach = function(client) 
          if client.config.flags then
     client.config.flags.allow_incremental_sync = true
   end
-
 end
 
 local custom_on_init = function()
@@ -63,7 +65,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     --  spacing = 4,
    -- },
     signs = true,
-    update_in_insert = false,
+    update_in_insert = true,
     underline = true
   }
 )
@@ -71,24 +73,25 @@ vim.cmd [[ autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)]]
 vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
 vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
 
-vim.fn.sign_define('LspDiagnosticsSignError', { text = "", texthl = "LspDiagnosticsDefaultError" })
-vim.fn.sign_define('LspDiagnosticsSignWarning', { text = "", texthl = "LspDiagnosticsDefaultWarning" })
-vim.fn.sign_define('LspDiagnosticsSignInformation', { text = "", texthl = "LspDiagnosticsDefaultInformation" })
-vim.fn.sign_define('LspDiagnosticsSignHint', { text = "", texthl = "LspDiagnosticsDefaultHint" })
+local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
+
+for type, icon in pairs(signs) do
+  local hl = "LspDiagnosticsSign" .. type
+  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+end
+
 local sumneko_root = os.getenv("HOME") .. "/repos/lua-language-server"
 local servers = {
-        phpactor ={
-                filetypes = {"php"}
+    phpactor ={
+         filetypes = {"php"}
         },
     denols = {
-filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-    root_dir = vim.loop.cwd,
-  settings = {
-    documentFormatting = true,
-    lint = true,
-    unstable = true
-  
-
+        filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+        root_dir = vim.loop.cwd,
+    settings = {
+            documentFormatting = true,
+        lint = true,
+        unstable = true
     }
   },
   jdtls = {
@@ -97,8 +100,8 @@ filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "
 			augroup jdtls
 			au!
 			au FileType java lua require('jdtls').start_or_attach({cmd = {'start_jdtls'},on_attach = mappings})
-  augroup end]],false)
-  end
+            augroup end]],false)
+     end
   },
   html = {
         cmd = { "vscode-html-language-server", "--stdio" },
@@ -178,3 +181,53 @@ for name, opts in pairs(servers) do
   })
 end
 
+
+local Border = {
+{"╭", "FloatBorder"},
+{"─", "FloatBorder"},
+{"╮", "FloatBorder"},
+{"│", "FloatBorder"},
+{"╯", "FloatBorder"},
+{"─", "FloatBorder"},
+{"╰", "FloatBorder"},
+{"│", "FloatBorder"},
+
+}
+
+
+vim.api.nvim_command("autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics({border="..vim.inspect(Border)..", focusable=false})")
+
+local M = {}
+
+M.icons = {
+  Class = " ",
+  Color = " ",
+  Constant = " ",
+  Constructor = " ",
+  Enum = "了 ",
+  EnumMember = " ",
+  Field = " ",
+  File = " ",
+  Folder = " ",
+  Function = " ",
+  Interface = "ﰮ ",
+  Keyword = " ",
+  Method = "ƒ ",
+  Module = " ",
+  Property = " ",
+  Snippet = "﬌ ",
+  Struct = " ",
+  Text = " ",
+  Unit = " ",
+  Value = " ",
+  Variable = " ",
+}
+
+function M.setup()
+  local kinds = vim.lsp.protocol.CompletionItemKind
+  for i, kind in ipairs(kinds) do
+    kinds[i] = M.icons[kind] or kind
+  end
+end
+
+return M

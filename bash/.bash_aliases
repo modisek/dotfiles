@@ -2,7 +2,7 @@ alias ..=' cd ..'
 
 alias la='exa -a --icons'
 alias ls='exa  --icons'
-alias ll='exa --long --header --inode --git --icons'
+alias ll='exa -l --icons'
 alias lr='exa -R --icons'
 alias cat='bat'
 alias aliasconf="nvim ~/dotfiles/bash/.bash_aliases"
