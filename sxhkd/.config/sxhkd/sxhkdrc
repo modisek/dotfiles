@@ -1,0 +1,95 @@
+# terminal emulator
+super + shift + Return
+  urxvtc
+
+shift + Return
+ urxvtc
+
+#pcmanfm
+ctrl + shift + f
+  urxvt -e ~/scripts/lf $HOME
+
+#alsamixer
+ctrl + shift + s
+  urxvt -e alsamixer
+
+#rofi
+super + z
+  rofi -show drun -show-icons -modi drun
+
+# make sxhkd reload its configuration files:
+super + Escape
+  pkill -USR1 -x sxhkd
+
+ctrl + b
+  firefox
+
+ctrl + w
+  ~/basilisk/basilisk
+
+XF86AudioRaiseVolume
+  pactl set-sink-volume @DEFAULT_SINK@ +5%
+
+XF86AudioLowerVolume
+  pactl set-sink-volume @DEFAULT_SINK@ -5%
+
+XF86AudioMute
+  pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+XF86AudioMicMute
+  pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+XF86AudioPlay
+  playerctl play-pause
+
+XF86AudioPause
+  playerctl pause
+
+
+XF86AudioNext 
+  playerctl next
+
+XF86AudioPrev 
+  playerctl previous
+ 
+ctrl +  XF86AudioPlay
+  mpc toggle
+
+ctrl + XF86AudioNext 
+  mpc next
+
+ctrl + XF86AudioPrev 
+  mpc prev
+
+XF86Forward
+  mpc seek +5
+
+XF86Back
+  mpc seek -5
+
+
+ctrl + shift + p
+  imv  "$HOME/Pictures"
+
+Print
+ scrot '%Y-%m-%d_%H-%M-%S.png' -e  'mv $f ~/Pictures/Screenshots/'
+
+ctrl + print
+  grabc ; xdotool click 1
+
+
+ctrl + shift + h
+  urxvt -e htop
+
+
+ctrl + t
+  trayer
+
+ctrl + shift + t
+  pkill trayer
+  
+XF86MonBrightnessUp
+    light -A 10
+
+XF86MonBrightnessDown
+    light -U 10

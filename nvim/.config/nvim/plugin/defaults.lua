@@ -3,13 +3,8 @@ local o = vim.opt
 local g = vim.g
 local cmd = vim.cmd
 
+cmd("set pumblend=5")
 
-cmd("set re=0")
-cmd("set noshowmode")
-cmd("set noruler")
-cmd("set laststatus=0")
-cmd("set noshowcmd")
-cmd("set cmdheight=1")
 -- global options
 o.clipboard = "unnamedplus"
 cmd 'filetype plugin indent on'

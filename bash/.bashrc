@@ -1,5 +1,4 @@
-
-# export LIBSEAT_BACKEND=logind
+export LIBSEAT_BACKEND=logind
 export PGDATA=/home/postgres 
 export QT_QPA_PLATFORMTHEME=gtk
 export DOTS="/home/nerdroid/Dotfiles"

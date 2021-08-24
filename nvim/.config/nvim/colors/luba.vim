@@ -33,11 +33,11 @@
   let s:base04 = ['#626262', '145']
   let s:base05 = ['#727272', '251']
   let s:base06 = ['#929292', '252']
-  let s:base07 = ['#d8dee9', '253']
+  let s:base07 = ['#9ab19a', '253'] 
   let s:red    = ['#d88553', '203']
   let s:orange = ['#eda644', '209']
-  let s:yellow = ['#eda622', '221']
-  let s:green  = ['#9ab19a', '114']
+  let s:yellow = ['#f8ab01', '221']
+  let s:green  = ['#9e9e9e', '114']
   let s:cyan   = ['#5f5f88', '73']
   let s:blue   = ['#5f8787', '68']
   let s:purple = ['#99bbbb', '176']
@@ -118,10 +118,10 @@ endfunction
 
   " Standard syntax highlighting
   call s:hi('Boolean',                            s:orange, '',       '',          '')
-  call s:hi('Character',                          s:green,    '',       '',          '')
+  call s:hi('Character',                          s:base07,    '',       '',          '')
   call s:hi('Comment',                            s:base03, '',       s:italic,    '')
   call s:hi('Conditional',                        s:purple, '',       '',          '')
-  call s:hi('Constant',                           s:green, '',       '',          '')
+  call s:hi('Constant',                           s:base07, '',       '',          '')
   call s:hi('Define',                             s:purple, '',       '',          '')
   call s:hi('Delimiter',                          s:cyan,  '',       '',          '')
   call s:hi('Float',                              s:orange, '',       '',          '')
@@ -140,7 +140,7 @@ endfunction
   call s:hi('SpecialChar',                        s:orange,  '',       '',          '')
   call s:hi('Statement',                          s:purple,    '',       '',          '')
   call s:hi('StorageClass',                       s:yellow, '',       '',          '')
-  call s:hi('String',                             s:green,  '',       '',          '')
+  call s:hi('String',                             s:base07,  '',       '',          '')
   call s:hi('Structure',                          s:purple, '',       '',          '')
   call s:hi('Tag',                                s:cyan, '',       '',          '')
   call s:hi('Todo',                               s:yellow, s:base01, '',          '')
@@ -166,7 +166,7 @@ endfunction
 
 
   " TreeSitter stuff
-  call s:hi('TSInclude',                          s:cyan,   '',       '',          '')
+  call s:hi('TSInclude',                          s:yellow,   '',       '',          '')
   call s:hi('TSPunctBracket',                     s:green,   '',       '',          '')
   call s:hi('TSPunctDelimiter',                   s:green, '',       '',          '')
   " call s:hi('TSParameter',                        s:base07, '',       '',          '')
@@ -178,13 +178,13 @@ endfunction
   call s:hi('TSMethod',                           s:blue,   '',       '',          '')
   call s:hi('TSParameter',                        s:yellow, '',       '',          '')
   call s:hi('TSConstructor',                      s:base07, '',       '',          '')
-  call s:hi('TSVariable',                         s:base07, '',       '',          '')
+  call s:hi('TSVariable',                         s:green, '',       '',          '')
   call s:hi('TSOperator',                         s:green, '',       '',          '')
   call s:hi('TSTag',                              s:yellow, '',       '',          '')
   call s:hi('TSKeyword',                          s:yellow, '',       '',          '')
   call s:hi('TSKeywordOperator',                  s:purple, '',       '',          '')
   call s:hi('TSVariableBuiltin',                  s:red,    '',       '',          '')
-  call s:hi('TSLabel',                            s:cyan,   '',       '',          '')
+  call s:hi('TSLabel',                            s:yellow,   '',       '',          '')
 
   call s:hi('SpellBad',                           '',       '',       'undercurl', '')
   call s:hi('SpellLocal',                         '',       '',       'undercurl', '')
@@ -256,7 +256,7 @@ endfunction
   call s:hi('NERDTreeExecFile',                   s:base05, '',       '',          '')
   call s:hi('NERDTreeDirSlash',                   s:blue,   '',       '',          '')
   call s:hi('NERDTreeOpenable',                   s:blue,   '',       '',          '')
-  call s:hi('NERDTreeFile',                       '',       s:none,   '',          '')
+  call s:hi('NERDTreeFile',                       s:yellow,       s:none,   '',          '')
   call s:hi('NERDTreeFlags',                      s:blue,   '',       '',          '')
 
   call s:hi('phpComparison',                      s:base05, '',       '',          '')

@@ -93,9 +93,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/kommentary"
   },
-  ["kosmikoa.nvim"] = {
+  ["lspkind-nvim"] = {
     loaded = true,
-    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/kosmikoa.nvim"
+    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
+  },
+  ["lspsaga.nvim"] = {
+    loaded = true,
+    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
   },
   nerdtree = {
     loaded = true,
@@ -117,12 +121,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
   },
-  ["tabout.nvim"] = {
-    config = { "\27LJ\2\2ë\2\0\0\4\0\f\0\0236\0\0\0'\1\1\0B\0\2\0029\0\2\0005\1\3\0004\2\a\0005\3\4\0>\3\1\0025\3\5\0>\3\2\0025\3\6\0>\3\3\0025\3\a\0>\3\4\0025\3\b\0>\3\5\0025\3\t\0>\3\6\2=\2\n\0014\2\0\0=\2\v\1B\0\2\1K\0\1\0\fexclude\ftabouts\1\0\2\topen\6{\nclose\6}\1\0\2\topen\6[\nclose\6]\1\0\2\topen\6(\nclose\6)\1\0\2\topen\6`\nclose\6`\1\0\2\topen\6\"\nclose\6\"\1\0\2\topen\6'\nclose\6'\1\0\a\21ignore_beginning\2\15act_as_tab\2\21act_as_shift_tab\1\15completion\2\21enable_backwards\2\21backwards_tabkey\f<S-Tab>\vtabkey\n<Tab>\nsetup\vtabout\frequire\0" },
+  nvim_context_vt = {
     loaded = true,
-    needs_bufread = false,
-    path = "/home/kgosi/.local/share/nvim/site/pack/packer/opt/tabout.nvim",
-    wants = { "nvim-treesitter" }
+    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/nvim_context_vt"
   },
   ["vim-fugitive"] = {
     loaded = true,
@@ -136,6 +137,18 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/vim-jsx-pretty"
   },
+  ["vim-styled-components"] = {
+    loaded = true,
+    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/vim-styled-components"
+  },
+  ["vim-vsnip"] = {
+    loaded = true,
+    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/vim-vsnip"
+  },
+  ["vim-vsnip-integ"] = {
+    loaded = true,
+    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/vim-vsnip-integ"
+  },
   vimwiki = {
     loaded = true,
     path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/vimwiki"
@@ -143,10 +156,6 @@ _G.packer_plugins = {
   vlime = {
     loaded = true,
     path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/vlime"
-  },
-  ["zephyr-nvim"] = {
-    loaded = true,
-    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/zephyr-nvim"
   }
 }
 

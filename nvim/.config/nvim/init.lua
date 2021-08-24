@@ -11,7 +11,10 @@ vim.cmd('packadd packer.nvim')
 local packer = require'packer'
 local util = require'packer.util'
 packer.init({
-  package_root = util.join_paths(vim.fn.stdpath('data'), 'site', 'pack')
+  package_root = util.join_paths(vim.fn.stdpath('data'), 'site', 'pack'),
+  git = {
+      clone_timeout = 300,
+  }
 })
 --- startup and add configure plugins
 packer.startup(function()
@@ -20,7 +23,7 @@ packer.startup(function()
   -- add you plugins here like
   
   use 'neovim/nvim-lspconfig'
-  use  'hrsh7th/nvim-compe'
+  --use 'nvim-lua/completion-nvim'
   use 'nvim-treesitter/nvim-treesitter'
   use 'mfussenegger/nvim-jdtls'
   use 'junegunn/fzf'
@@ -35,33 +38,13 @@ packer.startup(function()
   use 'vimwiki/vimwiki'
   use 'tacsiazuma/easyjava.vim'
   use 'MaxMEllon/vim-jsx-pretty'
-  use 'mhartington/oceanic-next' 
-  use {
-  'abecodes/tabout.nvim',
-  config = function()
-    require('tabout').setup {
-    tabkey = '<Tab>', -- key to trigger tabout, set to an empty string to disable
-    backwards_tabkey = '<S-Tab>', -- key to trigger backwards tabout, set to an empty string to disable
-    act_as_tab = true, -- shift content if tab out is not possible
-    act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
-    enable_backwards = true, -- well ...
-     completion = true, -- if the tabkey is used in a completion pum
-    tabouts = {
-      {open = "'", close = "'"},
-      {open = '"', close = '"'},
-      {open = '`', close = '`'},
-      {open = '(', close = ')'},
-      {open = '[', close = ']'},
-      {open = '{', close = '}'}
-    },
-    ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
-    exclude = {} -- tabout will ignore these filetypes
-}
-  end,
-	wants = {'nvim-treesitter'}, -- or require if not used so far
-	after = {'nvim-compe'} -- if a completion plugin is using tabs load it before
-}
-  
+  use {'styled-components/vim-styled-components',branch = 'main' }
+  use 'hrsh7th/nvim-compe'
+  use 'hrsh7th/vim-vsnip'
+  use 'hrsh7th/vim-vsnip-integ'
+  use 'haringsrob/nvim_context_vt'
+  use 'glepnir/lspsaga.nvim'
+  use 'onsails/lspkind-nvim'
   end
 )
 
@@ -89,5 +72,6 @@ vim.g.vimwiki_list = {
 }
 
 
-
+--vim.cmd[[autocmd BufEnter * lua require'completion'.on_attach--()
+--]]
 vim.cmd[[autocmd FileType html,css,javascript.jsx,javascript EmmetInstall]]

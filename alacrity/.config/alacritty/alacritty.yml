@@ -7,21 +7,10 @@ env:
 
 font:
   normal:
-    family: Hurmit Nerd Font
+    family: TerminessTTF Nerd Font
     style: Medium
-    family: nonicon 
+  size: 12.5
 
-  bold:
-    family: FantasqueSansMono Nerd Font
-    style: Bold
-
-  italic:
-    family: FantasqueSansMono Nerd Font
-    style: Italic
-
-  bold_italic:
-    family: FantasqueSansMono Nerd Font
-    style: Bold Italic
 
   
 draw_bold_text_with_bright_colors: false
@@ -47,8 +36,8 @@ colors:
     red:     '0xf36870'
     green:   '0x9ab19a'
     yellow:  '0xf2e34c'
-    blue:    '0xd3bbdd'
-    magenta: '0xcc99cc'
+    blue:    '0xffcc66'
+    magenta: '0xeda634'
     cyan:    '0x66cccc'
     white:   '0xf0f7e0'
 
@@ -58,8 +47,8 @@ colors:
     red:     '0xf2777a'
     green:   '0x99cc99'
     yellow:  '0xffcc66'
-    blue:    '0x6699cc'
-    magenta: '0xcc99cc'
+    blue:    '0xffcc66'
+    magenta: '0xeda634'
     cyan:    '0x66cccc'
     white:   '0xf2f0ec'
 
@@ -94,8 +83,4 @@ mouse:
   triple_click: { threshold: 300 }
 
   hide_when_typing: false
-font:
-  normal:
-    family: FantasqueSansMono Nerd Font 
-  size: 11
 

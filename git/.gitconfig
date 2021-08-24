@@ -8,7 +8,7 @@
 [alias]
 	a = add --all
 	c = commit 
-	pom = push origin master
+	pom = push origin main
 	s = status
 	l = log
 	cb = checkout -b

@@ -6,13 +6,27 @@ local mapper = function(mode, key, result)
   api.nvim_buf_set_keymap(0, mode, key, "<cmd>lua "..result.."<cr>", {noremap = true, silent = true})
 end
 
-local custom_capabilities = function()
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-
-  return capabilities
-end
-
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.documentationFormat = {
+  "markdown",
+}
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.preselectSupport = true
+capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+capabilities.textDocument.completion.completionItem.commitCharactersSupport =
+  true
+capabilities.textDocument.completion.completionItem.tagSupport = {
+  valueSet = { 1 },
+}
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = {
+    "documentation",
+    "detail",
+    "additionalTextEdits",
+  },
+}
 local mappings = function()
           -- Move cursor to the next and previous diagnostic
   mapper('n', '<leader>dn', 'vim.lsp.diagnostic.goto_next()')
@@ -47,13 +61,13 @@ local mappings = function()
       end
   end
 
-local custom_on_attach = function(client) 
+local lsp_on_attach = function(client) 
          if client.config.flags then
     client.config.flags.allow_incremental_sync = true
   end
 end
 
-local custom_on_init = function()
+local lsp_on_init = function()
   print("Language Server Protocol started!")
 end
 
@@ -106,6 +120,7 @@ local servers = {
   html = {
         cmd = { "vscode-html-language-server", "--stdio" },
     filetypes = { "html" ,"javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+capabilities = capabilities,
     init_options = {
       configurationSection = { "html", "css", "javascript"},
       embeddedLanguages = {
@@ -118,6 +133,7 @@ local servers = {
   cssls = {
     cmd = { "vscode-css-language-server", "--stdio" },
     filetypes = { "css", "scss", "less" },
+    capabilities = capabilities,
     settings = {
       css = {
         validate = true
@@ -165,22 +181,18 @@ local servers = {
 }
 
 for name, opts in pairs(servers) do
-  local client = nvim_lsp[name]
-  if opts.extra_setup then
-    opts.extra_setup()
+  if type(opts) == "function" then
+    opts()
+  else
+    local client = nvim_lsp[name]
+    client.setup(vim.tbl_extend("force", {
+      flags = { debounce_text_changes = 150 },
+      on_attach = lsp_on_attach,
+      on_init = lsp_on_init,
+      capabilities = capabilities,
+    }, opts))
   end
-  client.setup({
-    cmd = opts.cmd or client.cmd,
-    filetypes = opts.filetypes or client.filetypes,
-    on_attach = opts.on_attach or custom_on_attach,
-    on_init = opts.on_init or custom_on_init,
-    handlers = opts.handlers or client.handlers,
-    root_dir = opts.root_dir or client.root_dir,
-    capabilities = opts.capabilities or custom_capabilities(),
-    settings = opts.settings or {},
-  })
 end
-
 
 local Border = {
 {"╭", "FloatBorder"},

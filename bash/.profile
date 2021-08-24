@@ -27,6 +27,10 @@ if [ -d "$HOME/.local/bin" ] ; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
+ if [ -f $HOME/.kshrc -a -r $HOME/.kshrc ]; then
+	ENV=$HOME/.kshrc		# set ENV if there is an rc file
+    export ENV
+fi
 # Styling QT apps with chosen GTK themes:
 #
 # Adwaita themes - install 'adwaita-qt' package, then ...
@@ -37,7 +41,7 @@ fi
 export QT_QPA_PLATFORMTHEME=gtk
 export DOTS="/home/nerdroid/Dotfiles"
 export TERMINAL="urxvt"
-export PROJ="/home/nerdroid/Projects"
+export PROJ="/home/nerdroid/projects"
 export JAVA_HOME="/usr/lib/jvm/openjdk11"
 export VISUAL=nvim
 export EDITOR="$VISUAL"
@@ -49,4 +53,4 @@ export PATH=$HOME/.deno/bin:$PATH
 export BROWSER=firefox
 # Add default node to path
 
-
+xset +fp /usr/share/fonts/X11/spleen/
