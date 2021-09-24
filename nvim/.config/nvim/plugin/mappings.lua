@@ -90,3 +90,19 @@ vim.cmd[[
     nnoremap <leader>j :m .+1<CR>==
 
     ]]
+
+    vim.cmd [[
+    
+nnoremap <Leader>v :vsplit<enter>
+nnoremap <Leader>s :split<enter>
+
+" Use shift-H and shift-L for move to beginning/end
+nnoremap <S-h> 0
+nnoremap <S-l> $
+
+nmap <silent> <Leader>t :tabnew<CR>
+nmap <silent> <C-N> :tabprevious<CR>
+nmap <silent> <C-M> :tabnext<CR>
+nmap <silent> <Leader>d :tabe %<CR>
+
+]]

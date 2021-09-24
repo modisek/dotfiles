@@ -22,29 +22,54 @@ packer.startup(function()
   
   -- add you plugins here like
   
-  use 'neovim/nvim-lspconfig'
-  --use 'nvim-lua/completion-nvim'
+  use {'neovim/nvim-lspconfig',
+    requires ={
+        'glepnir/lspsaga.nvim',
+        'onsails/lspkind-nvim',
+        'mfussenegger/nvim-jdtls'
+
+    }
+  }
   use 'nvim-treesitter/nvim-treesitter'
-  use 'mfussenegger/nvim-jdtls'
-  use 'junegunn/fzf'
-  use 'junegunn/fzf.vim'
-  use 'preservim/nerdtree'
-  use {'RRethy/vim-hexokinase', run= 'make hexokinase'}
+  use {'junegunn/fzf',
+        requires = {
+            'junegunn/fzf.vim'
+
+        }
+  }
+    use {'RRethy/vim-hexokinase', run= 'make hexokinase'}
   use 'tpope/vim-fugitive' 
-  use 'b3nj5m1n/kommentary'
+  use {'b3nj5m1n/kommentary',
+    event="InsertEnter"
+  }
   use 'mattn/emmet-vim'
   use 'vlime/vlime'
-  use 'jiangmiao/auto-pairs'
-  use 'vimwiki/vimwiki'
+  use { 'windwp/nvim-autopairs',
+    event="InsertEnter"
+  }
+  use {'vimwiki/vimwiki',
+    cmd = {
+        "VimwikiIndex"
+    }
+  }
   use 'tacsiazuma/easyjava.vim'
   use 'MaxMEllon/vim-jsx-pretty'
   use {'styled-components/vim-styled-components',branch = 'main' }
-  use 'hrsh7th/nvim-compe'
-  use 'hrsh7th/vim-vsnip'
-  use 'hrsh7th/vim-vsnip-integ'
   use 'haringsrob/nvim_context_vt'
-  use 'glepnir/lspsaga.nvim'
-  use 'onsails/lspkind-nvim'
+  use {
+    'kyazdani42/nvim-tree.lua',
+    requires = 'kyazdani42/nvim-web-devicons'
+}
+
+ use 'hrsh7th/vim-vsnip'
+use 'kitagry/vs-snippets' 
+  use "hrsh7th/nvim-cmp"
+  use "hrsh7th/cmp-buffer"
+  use "hrsh7th/cmp-nvim-lsp"
+  use "hrsh7th/cmp-path"
+
+use "airblade/vim-gitgutter"
+use "preservim/nerdtree"
   end
 )
 
@@ -72,6 +97,6 @@ vim.g.vimwiki_list = {
 }
 
 
---vim.cmd[[autocmd BufEnter * lua require'completion'.on_attach--()
---]]
 vim.cmd[[autocmd FileType html,css,javascript.jsx,javascript EmmetInstall]]
+
+

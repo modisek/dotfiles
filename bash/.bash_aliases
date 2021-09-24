@@ -22,4 +22,4 @@ alias note='nvim -c :VimwikiMakeDiaryNote'
 alias notes='nvim  -c :VimwikiIndex'
 # cd after mkdir
 
-
+alias neofetch='neofetch --disable uptime packages resolution theme icons cpu gpu'

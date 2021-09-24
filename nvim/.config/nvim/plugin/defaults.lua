@@ -4,7 +4,7 @@ local g = vim.g
 local cmd = vim.cmd
 
 cmd("set pumblend=5")
-
+cmd("set updatetime=100")
 -- global options
 o.clipboard = "unnamedplus"
 cmd 'filetype plugin indent on'
@@ -101,8 +101,6 @@ end
 
 cmd[[ set statusline=%!luaeval('my_statusline()') ]] 
 
-cmd[[let NERDTreeQuitOnOpen = 1 ]]
-cmd[[let NERDTreeMinimalUI = 1]]
 
 local disabled_built_ins = {
     "netrw",

@@ -69,9 +69,10 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  ["auto-pairs"] = {
+  ["circles.nvim"] = {
+    config = { "\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fcircles\frequire\0" },
     loaded = true,
-    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/auto-pairs"
+    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/circles.nvim"
   },
   ["easyjava.vim"] = {
     loaded = true,
@@ -89,9 +90,14 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/fzf.vim"
   },
-  kommentary = {
+  ["headlines.nvim"] = {
     loaded = true,
-    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/kommentary"
+    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/headlines.nvim"
+  },
+  kommentary = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/kgosi/.local/share/nvim/site/pack/packer/opt/kommentary"
   },
   ["lspkind-nvim"] = {
     loaded = true,
@@ -101,9 +107,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/lspsaga.nvim"
   },
-  nerdtree = {
-    loaded = true,
-    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/nerdtree"
+  ["nvim-autopairs"] = {
+    loaded = false,
+    needs_bufread = false,
+    path = "/home/kgosi/.local/share/nvim/site/pack/packer/opt/nvim-autopairs"
   },
   ["nvim-compe"] = {
     loaded = true,
@@ -117,9 +124,17 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/nvim-lspconfig"
   },
+  ["nvim-tree.lua"] = {
+    loaded = true,
+    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/nvim-tree.lua"
+  },
   ["nvim-treesitter"] = {
     loaded = true,
     path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/nvim-treesitter"
+  },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/nvim-web-devicons"
   },
   nvim_context_vt = {
     loaded = true,
@@ -145,13 +160,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/vim-vsnip"
   },
-  ["vim-vsnip-integ"] = {
-    loaded = true,
-    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/vim-vsnip-integ"
-  },
   vimwiki = {
-    loaded = true,
-    path = "/home/kgosi/.local/share/nvim/site/pack/packer/start/vimwiki"
+    commands = { "VimwikiIndex" },
+    loaded = false,
+    needs_bufread = true,
+    path = "/home/kgosi/.local/share/nvim/site/pack/packer/opt/vimwiki"
   },
   vlime = {
     loaded = true,
@@ -160,6 +173,23 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: circles.nvim
+time([[Config for circles.nvim]], true)
+try_loadstring("\27LJ\2\n5\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\fcircles\frequire\0", "config", "circles.nvim")
+time([[Config for circles.nvim]], false)
+
+-- Command lazy-loads
+time([[Defining lazy-load commands]], true)
+pcall(vim.cmd, [[command -nargs=* -range -bang -complete=file VimwikiIndex lua require("packer.load")({'vimwiki'}, { cmd = "VimwikiIndex", l1 = <line1>, l2 = <line2>, bang = <q-bang>, args = <q-args> }, _G.packer_plugins)]])
+time([[Defining lazy-load commands]], false)
+
+vim.cmd [[augroup packer_load_aucmds]]
+vim.cmd [[au!]]
+  -- Event lazy-loads
+time([[Defining lazy-load event autocommands]], true)
+vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'kommentary', 'nvim-autopairs'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
+time([[Defining lazy-load event autocommands]], false)
+vim.cmd("augroup END")
 if should_profile then save_profiles() end
 
 end)

@@ -53,4 +53,3 @@ export PATH=$HOME/.deno/bin:$PATH
 export BROWSER=firefox
 # Add default node to path
 
-xset +fp /usr/share/fonts/X11/spleen/
