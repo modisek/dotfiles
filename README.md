@@ -2,10 +2,11 @@
 This are my personal dotfiles for all the applications i use
 ### The set up currently
 
-* void linux ~~ubuntu minimal~~
-* dwm as the window manager ~~i3wm~~
+* void linux(musl)
+* cwm as the window manager
 * nvim as my editor
-* alacritty/urxvt/st as my terminal emulators
+* uxterm as my terminal emulators
+* terminus font 
 
 ### Other applicatios
 * tmux
