@@ -1,4 +1,5 @@
-export LIBSEAT_BACKEND=logind
+#export LIBSEAT_BACKEND=logind
+#export MOZ_ENABLE_WAYLAND=1
 export PGDATA=/home/postgres 
 export QT_QPA_PLATFORMTHEME=gtk
 export DOTS="/home/nerdroid/Dotfiles"
@@ -9,7 +10,7 @@ export VISUAL=nvim
 export EDITOR="$VISUAL"
 
 export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$HOME/scripts:$PATH
+export PATH=$HOME/dotfiles/scripts:$PATH
 export PATH=$HOME/.deno/bin:$PATH
 
 export BROWSER=firefox
@@ -90,7 +91,7 @@ if [ "$color_prompt" = yes ]; then
     #PS1="\[\033[0;31m\]\342\224\214\342\224\200\$([[ \$? != 0 ]] && echo \"[\[\033[0;31m\]\342\234\227\[\033[0;37m\]]\342\224\200\")[$(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]root\[\033[01;33m\]@\[\033[01;96m\]\h'; else echo '\[\033[0;39m\]\u\[\033[01;33m\]@\[\033[01;96m\]\h'; fi)\[\033[0;31m\]]\342\224\200[\[\033[0;32m\]\w\[\033[0;31m\]]\n\[\033[0;31m\]\342\224\224\342\224\200\342\224\200\342\225\274 \[\033[0m\]\[\e[01;33m\]\\$\[\e[0m\]"
     PS1='${debian_chroot:+($debian_chroot)}kgosi\[\033[01;34m\]\w\[\033[00m\] ⌾ '
     #PS1='\[\033[01;33m\][\W]─$(__git_ps1 "(%s)")── ─\[\033[00m\] '
-    
+
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -188,3 +189,5 @@ eval "$(zoxide init bash)"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/kgosi/.sdkman"
 [[ -s "/home/kgosi/.sdkman/bin/sdkman-init.sh" ]] && source "/home/kgosi/.sdkman/bin/sdkman-init.sh"
+
+complete -C /usr/bin/terraform terraform

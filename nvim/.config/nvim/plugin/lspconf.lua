@@ -2,6 +2,8 @@ local nvim_lsp = require('lspconfig')
 local api = vim.api
 local cwd = vim.loop.cwd
 
+require('modules/handlers')
+
 local mapper = function(mode, key, result)
   api.nvim_buf_set_keymap(0, mode, key, "<cmd>lua "..result.."<cr>", {noremap = true, silent = true})
 end
@@ -29,75 +31,68 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
     "additionalTextEdits",
   },
 }
-local mappings = function()
-          -- Move cursor to the next and previous diagnostic
-  mapper('n', '<leader>dn', 'vim.lsp.diagnostic.goto_next()')
-  mapper('n', '<leader>dp', 'vim.lsp.diagnostic.goto_prev()')
-  -- Keybindings for LSPs
-  -- Close quickfix with :cclose:
-  mapper('n', 'gd', 'vim.lsp.buf.definition()')
-  mapper('n', 'gh', 'vim.lsp.buf.hover()')
-  mapper('n', 'gD', 'vim.lsp.buf.implementation()')
-  mapper('n', '<c-k>', 'vim.lsp.buf.signature_help()')
-  mapper('n', '1gD', 'vim.lsp.buf.type_definition()')
-  mapper('n', 'gr', 'vim.lsp.buf.references()')
-  mapper('n', 'g0', 'vim.lsp.buf.document_symbol()')
-  mapper('n', 'gW', 'vim.lsp.buf.workspace_symbol()')
-  mapper('n', '<leader>lca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
- if client.resolved_capabilities.document_formatting then
-    buf_set_keymap("n", "<leader>f", "vim.lsp.buf.formatting()<CR>", opts)
+local lsp_on_attach = function(client)
+
+     if client.resolved_capabilities.code_lens then
+    vim.cmd [[
+    augroup CodeLens
+      au!
+      au InsertEnter,InsertLeave * lua vim.lsp.codelens.refresh()
+    augroup END
+    ]]
   end
 
- if client.resolved_capabilities.document_range_formatting then
-    buf_set_keymap("v", "<leader>f", "vim.lsp.buf.range_formatting()<CR>", opts)
-  end
-
- if client.resolved_capabilities.code_lens then
-        vim.cmd [[
-          augroup CodeLens
-            au!
-            au CursorHold,CursorHoldI * lua vim.lsp.codelens.refresh()
-          augroup END
-        ]]
-      end
-  end
-
-local lsp_on_attach = function(client) 
-         if client.config.flags then
+  if client.resolved_capabilities.document_highlight then
+    vim.cmd [[
+      autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
+      autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
+      autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+    ]]
+end
+ if client.config.flags then
     client.config.flags.allow_incremental_sync = true
   end
+
+  require("modules/mappings").mappings()
 end
 
-local lsp_on_init = function()
-  print("Language Server Protocol started!")
+local lsp_on_init = function(client)
+vim.notify(client.name .. ": Language Server Client successfully started!", "info")
 end
 
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = false ,--{
-    --  prefix = "»",
-    --  spacing = 4,
-   -- },
-    signs = true,
-    update_in_insert = true,
-    underline = true
-  }
-)
 vim.cmd [[ autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)]]
 vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
-vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
+--vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
 
-local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
-
-for type, icon in pairs(signs) do
-  local hl = "LspDiagnosticsSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end
-
-local sumneko_root = os.getenv("HOME") .. "/repos/lua-language-server"
 local servers = {
+    sqls ={},
+      tsserver = {
+    init_options = vim.tbl_extend(
+      "force",
+      require("nvim-lsp-ts-utils").init_options,
+      { documentFormatting = false }
+    ),
+  },
+    -- tsserver ={
+    -- cmd = { "typescript-language-server", "--stdio" },
+    -- filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+    -- init_options = {
+    --   hostInfo = "neovim"
+    -- },
+    -- -- root_dir = root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git")
+    -- },
+    terraformls={
+            cmd = { "terraform-ls", "serve" },
+            filetypes = { "terraform" }
+    },
+
+    svelte={
+        cmd = { "svelteserver", "--stdio" },
+    filetypes = { "svelte" },
+    --root_dir = root_pattern("package.json", ".git")
+    },
    bashls ={
        cmd = { "bash-language-server", "start" },
     cmd_env = {
@@ -105,99 +100,42 @@ local servers = {
     },
     filetypes = { "sh" }
    },
-    gopls = {
+      gopls = {
         cmd = {"gopls", "serve"},
     settings = {
       gopls = {
         analyses = {
           unusedparams = true,
         },
+         codelenses = {
+          generate = true, -- show the `go generate` lens.
+          gc_details = true, --  // Show a code lens toggling the display of gc's choices.
+          test = true,
+          tidy = true
+        },
+        usePlaceholders = true,
+        completeUnimported = true,
+        staticcheck = true,
+        matcher = "fuzzy",
+        diagnosticsDelay = "500ms",
+        experimentalWatchedFileDelay = "1000ms",
+        symbolMatcher = "fuzzy",
+        gofumpt = false, -- true, -- turn on for new repos, gofmpt is good but also create code turmoils
+        buildFlags = {"-tags", "integration"}
+        -- buildFlags = {"-tags", "functional"}
+      },
         staticcheck = true,
       },
+      flags = {allow_incremental_sync = true, debounce_text_changes = 150},
     },
-    },
-    phpactor ={
-         filetypes = {"php"}
-        },
-    denols = {
-        filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-        root_dir = vim.loop.cwd,
-    settings = {
-            documentFormatting = true,
-        lint = true,
-        unstable = true
-    }
-  },
-  jdtls = {
-	  extra_setup = function()
-		vim.api.nvim_exec([[
-			augroup jdtls
-			au!
-			au FileType java lua require('jdtls').start_or_attach({cmd = {'start_jdtls'},on_attach = mappings})
-            augroup end]],false)
-     end
-  },
-  html = {
+          html = {
         cmd = { "vscode-html-language-server", "--stdio" },
-    filetypes = { "html" ,"javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-capabilities = capabilities,
-    init_options = {
-      configurationSection = { "html", "css", "javascript"},
-      embeddedLanguages = {
-        css = true,
-        javascript = true
-      }
-    },   
-    settings = {}
-  },
+      },
   cssls = {
     cmd = { "vscode-css-language-server", "--stdio" },
-    filetypes = { "css", "scss", "less" },
-    capabilities = capabilities,
-    settings = {
-      css = {
-        validate = true
       },
-      less = {
-        validate = true
-      },
-      scss = {
-        validate = true
-      }
-    }
-  },
 
-  sumneko_lua = {
-    cmd = {
-      sumneko_root .. "/bin/Linux/lua-language-server",
-      "-E",
-      sumneko_root .. "/main.lua",
-    },
-    on_attach = custom_on_attach,
-    on_init = custom_on_init,
-    settings = {
-      Lua = {
-        runtime = { version = "LuaJIT", path = vim.split(package.path, ";") },
-        diagnostics = {
-          enable = true,
-          globals = {
-            "vim",
-            "describe",
-            "it",
-            "before_each",
-            "after_each",
-            "awesome",
-            "theme",
-            "client",
-            "P",
-          },
-        },
-        workspace = {
-          preloadFileSize = 400,
-        },
-      },
-    },
-  },
+
 }
 
 for name, opts in pairs(servers) do
@@ -227,6 +165,36 @@ local Border = {
 }
 
 
-vim.api.nvim_command("autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics({border="..vim.inspect(Border)..", focusable=false})")
+-- vim.api.nvim_command("autocmd CursorHold,CursorHoldI * lua vim.lsp.diagnostic.show_line_diagnostics({border="..vim.inspect(Border)..", focusable=false})")
 
+  function goimports(timeout_ms)
+    local context = { only = { "source.organizeImports" } }
+    vim.validate { context = { context, "t", true } }
 
+    local params = vim.lsp.util.make_range_params()
+    params.context = context
+
+    -- See the implementation of the textDocument/codeAction callback
+    -- (lua/vim/lsp/handler.lua) for how to do this properly.
+    local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, timeout_ms)
+    if not result or next(result) == nil then return end
+    local actions = result[1].result
+    if not actions then return end
+    local action = actions[1]
+
+    -- textDocument/codeAction can return either Command[] or CodeAction[]. If it
+    -- is a CodeAction, it can have either an edit, a command or both. Edits
+    -- should be executed first.
+    if action.edit or type(action.command) == "table" then
+      if action.edit then
+        vim.lsp.util.apply_workspace_edit(action.edit)
+      end
+      if type(action.command) == "table" then
+        vim.lsp.buf.execute_command(action.command)
+      end
+    else
+      vim.lsp.buf.execute_command(action)
+    end
+  end
+
+vim.cmd[[autocmd BufWritePre *.go lua goimports(1000)]]

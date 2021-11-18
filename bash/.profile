@@ -52,4 +52,9 @@ export PATH=$HOME/.deno/bin:$PATH
 
 export BROWSER=firefox
 # Add default node to path
+export PATH="$PATH:$(go env GOPATH)/bin"
+# make CapsLock behave like Ctrl:
+setxkbmap -option ctrl:nocaps
 
+# make short-pressed Ctrl behave like Escape:
+xcape -e 'Control_L=Escape'

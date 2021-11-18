@@ -16,23 +16,16 @@ end
 vim.g.mapleader ="," 
 -- fzf
 
-map('n', '<leader>n', '<cmd>NERDTreeToggle<CR>')
+--map('n', '<leader>n', '<cmd>NERDTreeToggle<CR>')
 map('n', '<leader>m', '<cmd>Files<CR>')
 map('n', '<leader>g', '<cmd>Commits<CR>')
 map('n', 's', '<cmd>Buffers<CR>')
-g['fzf_action'] = {
-  ['ctrl-t'] = 'tab split',
-  ['ctrl-s'] = 'split',
-  ['ctrl-v'] = 'vsplit',
-}
 
-map('n', '<A-d>' , ':Lspsaga open_floaterm<CR>')
-map('n', '<leader>lr' , ':Lspsaga rename<CR>')
-map('n', '<leader>ca' , ':Lspsaga code_action<CR>')
-map('n', '<leader>gs', ':Lspsaga signature_help<CR>')
---map('n', '<leader>n' , ':NvimTreeToggle<CR>')
---map('n', '<leader>r' , ':NvimTreeFindFile<CR>')
-map('n', '//', '<cmd>BLines<CR>')
+
+
+map('n', '<leader>n' , ':NvimTreeToggle<CR>')
+map('n', '<leader>r' , ':NvimTreeFindFile<CR>')
+--map('n', '//', '<cmd>BLines<CR>')
 map('i', '<up>', '<nop>')
 map('i', '<down>', '<nop>')
 map('i', '<left>', '<nop>')
@@ -44,11 +37,13 @@ map('n', '<right>', '<nop>')
 --map('n', '<leader>ff', '<cmd>Neoformat<CR>')
 --map('i', '<leader>ff', '<cmd>Neoformat<CR>')
 
-vim.cmd("inoremap <silent><expr> <C-Space> compe#complete()")
-vim.cmd("inoremap <silent><expr> <CR>      compe#confirm('<CR>')")
-vim.cmd("inoremap <silent><expr> <C-e>     compe#close('<C-e>')")
-vim.cmd("inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })")
-vim.cmd("inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })")
+--Todo:fix the mess
+
+-- vim.cmd("inoremap <silent><expr> <C-Space> compe#complete()")
+-- vim.cmd("inoremap <silent><expr> <CR>      compe#confirm('<CR>')")
+-- vim.cmd("inoremap <silent><expr> <C-e>     compe#close('<C-e>')")
+-- vim.cmd("inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })")
+-- vim.cmd("inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })")
 vim.cmd("nnoremap <A-CR> <Cmd>lua require('jdtls').code_action()<CR>")
 vim.cmd("vnoremap <A-CR> <Esc><Cmd>lua require('jdtls').code_action(true)<CR>")
 vim.cmd("nnoremap <leader>rf <Cmd>lua require('jdtls').code_action(false, 'refactor')<CR>")
@@ -92,7 +87,7 @@ vim.cmd[[
     ]]
 
     vim.cmd [[
-    
+
 nnoremap <Leader>v :vsplit<enter>
 nnoremap <Leader>s :split<enter>
 
@@ -100,9 +95,23 @@ nnoremap <Leader>s :split<enter>
 nnoremap <S-h> 0
 nnoremap <S-l> $
 
-nmap <silent> <Leader>t :tabnew<CR>
 nmap <silent> <C-N> :tabprevious<CR>
 nmap <silent> <C-M> :tabnext<CR>
-nmap <silent> <Leader>d :tabe %<CR>
+nmap <silent> <Leader>t :tabe %<CR>
 
+]]
+
+--TODO:find buffer lines thingy
+vim.cmd [[
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+
+]]
+
+--TODO:replace lspsaga with telescope
+vim.cmd[[
+nnoremap <Leader>pp :lua require'telescope.builtin'.lsp_code_action()
 ]]

@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+tmux attach -t $(tmux list-sessions | awk '{print $1}' | tr ":" " " |fzf)
+
+

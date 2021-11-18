@@ -3,14 +3,14 @@ shift + Return
  st
 
 super + z
-  gt
+  dfind.sh
 #pcmanfm
 ctrl + shift + f
-  st -e ranger $HOME
+  pcmanfm
 
 #alsamixer
 ctrl + shift + s
-  st -e alsamixer
+  uxterm -e alsamixer
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -19,8 +19,6 @@ super + Escape
 ctrl + b
   firefox
 
-ctrl + w
-  ~/basilisk/basilisk
 
 XF86AudioRaiseVolume
   pactl set-sink-volume @DEFAULT_SINK@ +5%
@@ -78,5 +76,4 @@ XF86MonBrightnessUp
 XF86MonBrightnessDown
     light -U 10
 
-ctrl + z
-   xcolor |xclip -sel clip
+

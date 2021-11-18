@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+
+if [[ $# -eq 1 ]]; then
+    selected=$1
+else
+
+    selected=$(find ~/projects ~/ ~/terraform -mindepth 1 -maxdepth 1 -type d |fzf)
+    echo selected
+fi
+
+if [[ -z $selected ]]; then 
+    exit 0
+fi
+
+SESSION=$(basename "$selected" | tr . _)
+
+# SESSION=${PWD##*/}
+
+SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
+
+if ["$SESSIONEXISTS" = ""]
+then
+    tmux new -s $SESSION -d
+    tmux send-keys -t $SESSION 'vim .' C-m
+    tmux split-window -h -t $SESSION
+    tmux attach -t $SESSION
+else
+    tmux attach -t $SESSION
+
+fi

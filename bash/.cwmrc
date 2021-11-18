@@ -1,11 +1,15 @@
 fontname "Iosevka Nerd Font Mono:pixelsize=18:bold"
-gap 16 0 0 0
+gap 14 0 0 0
 snapdist 4
 moveamount 5
 color activeborder goldenrod1
 color inactiveborder "#333333"
-color menubg black
-color menufg white
+color font "#ebdbb2"
+color selfont "#282828"
+color menubg "#282828"
+color menufg "#ebdbb2"
+color groupborder "#686868"
+color ungroupborder "#7c7c7c"
 borderwidth 1
 
 sticky yes
@@ -98,6 +102,7 @@ bind-mouse 4S-3 window-hide
 ignore mpv
 ignore menu
 
-command firefox firefox
-command terminal st
-command files pcmanfm
+command "           terminal -" "uxterm"
+command "            firefox -" "firefox"
+command "            files -" "pcmanfm"
+

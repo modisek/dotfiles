@@ -4,13 +4,12 @@ local g = vim.g
 local cmd = vim.cmd
 
 cmd("set pumblend=5")
-cmd("set updatetime=100")
+--cmd("set updatetime=100")
 -- global options
 o.clipboard = "unnamedplus"
 cmd 'filetype plugin indent on'
-o.foldmethod = "expr"
-o.foldexpr = "nvim_treesitter#foldexpr()"
-o.foldlevelstart = 10
+o.foldmethod = "manual"
+o.foldopen = {"percent", "search",}
 o.swapfile = false
 o.dir = '/tmp'
 o.smartcase = true
@@ -25,7 +24,7 @@ cmd("set undodir=~/.nvim/undodir")
 o.cursorline = false
 o.foldenable = false
 o.conceallevel = 2
-o.mouse = 'a'
+o.mouse = 'nv'
 o.wildmenu = true
 o.tabstop = 4
 o.shiftwidth = 4
@@ -67,6 +66,7 @@ o.relativenumber = true
 -- buffer-local options
 --
 o.expandtab = true
+
 
 
 
