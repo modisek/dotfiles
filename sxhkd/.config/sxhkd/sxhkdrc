@@ -1,6 +1,10 @@
 # terminal emulator
 shift + Return
- st
+ uxterm
+
+super + y
+ ytt.sh
+
 
 super + z
   dfind.sh
@@ -44,7 +48,7 @@ XF86AudioNext
 
 XF86AudioPrev 
   playerctl previous
- 
+
 ctrl +  XF86AudioPlay
   mpc toggle
 
@@ -64,16 +68,9 @@ Print
  scrot '%Y-%m-%d_%H-%M-%S.png' -e  'mv $f ~/Pictures/Screenshots/'
 
 
-ctrl + t
-  trayer
 
-ctrl + shift + t
-  pkill trayer
-  
 XF86MonBrightnessUp
     light -A 10
 
 XF86MonBrightnessDown
     light -U 10
-
-
