@@ -12,6 +12,8 @@ export EDITOR="$VISUAL"
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/dotfiles/scripts:$PATH
 export PATH=$HOME/.deno/bin:$PATH
+export LIBVA_DRIVER_NAME=i965
+
 
 export BROWSER=firefox
 

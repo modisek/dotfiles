@@ -26,48 +26,68 @@ packer.startup(function()
     requires ={
         'onsails/lspkind-nvim',
         'mfussenegger/nvim-jdtls'
-
     }
   }
+  use 'rafamadriz/friendly-snippets'
+-- use {
+--   "folke/twilight.nvim",
+--   config = function()
+--     require("twilight").setup {
+--       -- your configuration comes here
+--       -- or leave it empty to use the default settings
+--       -- refer to the configuration section below
+--     }
+--   end
+-- }
   use 'nvim-treesitter/nvim-treesitter'
   use {'RRethy/vim-hexokinase', run= 'make hexokinase'}
   use 'tpope/vim-fugitive' 
+  use 'tpope/vim-surround'
 use {
     'numToStr/Comment.nvim',
     config = function()
         require('Comment').setup()
     end
 }
-  use 'mattn/emmet-vim'
+-- use {
+--   "folke/zen-mode.nvim",
+--   config = function()
+--     require("zen-mode").setup {
+--       -- your configuration comes here
+--       -- or leave it empty to use the default settings
+--       -- refer to the configuration section below
+--        {
+--            twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
+--     gitsigns = { enabled = false }, -- disables git signs
+--     tmux = { enabled = false },
+--        }
+--     }
+--   end
+-- }
+ -- use 'mattn/emmet-vim'
   use 'vlime/vlime'
   use 'windwp/nvim-autopairs'
   use 'vimwiki/vimwiki'
-  use 'tacsiazuma/easyjava.vim'
-  use 'MaxMEllon/vim-jsx-pretty'
-  use {'styled-components/vim-styled-components',branch = 'main' }
+  --use 'tacsiazuma/easyjava.vim'
+  --use 'MaxMEllon/vim-jsx-pretty'
+  --use {'styled-components/vim-styled-components',branch = 'main' }
   use 'haringsrob/nvim_context_vt'
-use 'hrsh7th/vim-vsnip'
-use 'hrsh7th/vim-vsnip-integ'
-use 'kitagry/vs-snippets' 
-use "hrsh7th/nvim-cmp"
-use "hrsh7th/cmp-buffer"
-use "hrsh7th/cmp-nvim-lsp"
-use "hrsh7th/cmp-path"
-use "rafamadriz/friendly-snippets"
-use "airblade/vim-gitgutter"
-use 'jose-elias-alvarez/null-ls.nvim'
-use 'jose-elias-alvarez/nvim-lsp-ts-utils'
-use 'nvim-lua/plenary.nvim'
-use 'ray-x/go.nvim'
-use 'https://gitlab.com/yorickpeterse/nvim-pqf.git'
-use {"ellisonleao/glow.nvim"}
-use 'sheerun/vim-polyglot'
-use {
-    'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function() require'nvim-tree'.setup {} end
-}
-use {
+  use 'hrsh7th/vim-vsnip'
+  use 'kitagry/vs-snippets' 
+  use "hrsh7th/nvim-cmp"
+  use "hrsh7th/cmp-buffer"
+  use "hrsh7th/cmp-nvim-lsp"
+  use "hrsh7th/cmp-path"
+
+  use "airblade/vim-gitgutter"
+-- use 'jose-elias-alvarez/null-ls.nvim'
+-- use 'jose-elias-alvarez/nvim-lsp-ts-utils'
+  use 'nvim-lua/plenary.nvim'
+  use 'ray-x/go.nvim'
+--use 'https://gitlab.com/yorickpeterse/nvim-pqf.git'
+  use {"ellisonleao/glow.nvim"}
+
+  use {
   'nvim-telescope/telescope.nvim',
   requires = { {'nvim-lua/plenary.nvim'} }
 }
@@ -96,27 +116,3 @@ vim.g.vimwiki_list = {
             extends = 'jsx'
          }
 }
-
-
-vim.cmd[[autocmd FileType html,css,javascript.jsx,javascript EmmetInstall]]
-require("null-ls").config {
-    sources = {
-
-        require("null-ls").builtins.formatting.eslint_d,
-        require("null-ls").builtins.formatting.markdownlint,
-        require("null-ls").builtins.formatting.terraform_fmt,
-        require("null-ls").builtins.formatting.trim_newlines,
-
-    }
-}
-require("lspconfig")["null-ls"].setup{}
-require("modules/null-ls").setup()
---vim.cmd[[autocmd BufWritePre *.go :silent! lua require('go.format').gofmt()]]
-require('pqf').setup({
-  signs = {
-    error = 'E',
-    warning = 'W',
-    info = 'I',
-    hint = 'H'
-  }
-})

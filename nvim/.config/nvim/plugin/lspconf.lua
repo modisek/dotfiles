@@ -34,6 +34,8 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 
 local lsp_on_attach = function(client)
 
+ vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
      if client.resolved_capabilities.code_lens then
     vim.cmd [[
     augroup CodeLens
@@ -55,6 +57,36 @@ end
   end
 
   require("modules/mappings").mappings()
+
+
+      -- Use LSP as the handler for formatexpr.
+      --    See `:help formatexpr` for more information.
+vim.api.nvim_buf_set_option(0, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
+ 
+-- define global function
+_G.lsp_import_on_completion = function()
+    local completed_item = vim.v.completed_item
+    if not (completed_item and completed_item.user_data and
+        completed_item.user_data.nvim and completed_item.user_data.nvim.lsp and
+        completed_item.user_data.nvim.lsp.completion_item) then return end
+
+    local item = completed_item.user_data.nvim.lsp.completion_item
+    local bufnr = vim.api.nvim_get_current_buf()
+    vim.lsp.buf_request(bufnr, "completionItem/resolve", item,
+                    function(_, _, result)
+        if result and result.additionalTextEdits then
+            vim.lsp.util.apply_text_edits(result.additionalTextEdits, bufnr)
+        end
+    end)
+end
+
+-- define autocmd to listen for CompleteDone
+vim.api.nvim_exec([[
+augroup LSPImportOnCompletion
+    autocmd!
+    autocmd CompleteDone * lua lsp_import_on_completion()
+augroup END
+]], false)
 end
 
 local lsp_on_init = function(client)
@@ -63,26 +95,20 @@ end
 
 
 vim.cmd [[ autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)]]
-vim.cmd [[autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()]]
+--vim.cmd [[autocmd CursorHold * lua vim.diagnostic.show_line_diagnostics()]]
+
 --vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
 
 local servers = {
     sqls ={},
-      tsserver = {
-    init_options = vim.tbl_extend(
-      "force",
-      require("nvim-lsp-ts-utils").init_options,
-      { documentFormatting = false }
-    ),
-  },
-    -- tsserver ={
-    -- cmd = { "typescript-language-server", "--stdio" },
-    -- filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-    -- init_options = {
-    --   hostInfo = "neovim"
-    -- },
-    -- -- root_dir = root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git")
-    -- },
+    tsserver ={
+        cmd = { "typescript-language-server", "--stdio" },
+        filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+        init_options = {
+            hostInfo = "neovim"
+          },
+    -- root_dir = root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git")
+    },
     terraformls={
             cmd = { "terraform-ls", "serve" },
             filetypes = { "terraform" }
@@ -100,7 +126,7 @@ local servers = {
     },
     filetypes = { "sh" }
    },
-      gopls = {
+   gopls = {
         cmd = {"gopls", "serve"},
     settings = {
       gopls = {

@@ -21,5 +21,6 @@ alias tn="t new -t"
 alias note='nvim -c :VimwikiMakeDiaryNote'
 alias notes='nvim  -c :VimwikiIndex'
 # cd after mkdir
-
+alias docker='podman'
 alias neofetch='neofetch --disable uptime packages resolution theme icons cpu gpu'
+alias swagger='docker run --rm -it  --user $(id -u):$(id -g) -e GOPATH=$(go env GOPATH):/go -v $HOME:$HOME -w $(pwd) quay.io/goswagger/swagger'

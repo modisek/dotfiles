@@ -30,12 +30,12 @@ cmp.setup {
     },
   },
     sources = {
- 
+
       { name = 'nvim_lsp' },
       { name = 'path' },
-      { name = 'vsnip'},    
-      { name = 'buffer', keyword_length = 5 },
-      
+      { name = 'vsnip'},   
+      { name = 'buffer', keyword_length = 3 },
+     
     },
       formatting = {
     format = lspkind.cmp_format {
@@ -45,7 +45,7 @@ cmp.setup {
         nvim_lsp = "[LSP]",
         path = "[path]",
         vsnip  = "[vsnip]",
-    
+   
       },
     },
   },

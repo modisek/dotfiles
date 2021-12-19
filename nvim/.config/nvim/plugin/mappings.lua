@@ -17,13 +17,13 @@ vim.g.mapleader =","
 -- fzf
 
 --map('n', '<leader>n', '<cmd>NERDTreeToggle<CR>')
-map('n', '<leader>m', '<cmd>Files<CR>')
+--map('n', '<leader>m', '<cmd>Files<CR>')
 map('n', '<leader>g', '<cmd>Commits<CR>')
 map('n', 's', '<cmd>Buffers<CR>')
 
 
 
-map('n', '<leader>n' , ':NvimTreeToggle<CR>')
+--map('n', '<leader>n' , ':NvimTreeToggle<CR>')
 map('n', '<leader>r' , ':NvimTreeFindFile<CR>')
 --map('n', '//', '<cmd>BLines<CR>')
 map('i', '<up>', '<nop>')
@@ -103,8 +103,8 @@ nmap <silent> <Leader>t :tabe %<CR>
 
 --TODO:find buffer lines thingy
 vim.cmd [[
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>n <cmd>Telescope find_files<cr>
+nnoremap <leader>m <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 

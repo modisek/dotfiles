@@ -11,31 +11,31 @@ lsp.handlers["textDocument/signatureHelp"] = lsp.with(
     border = Border,
   }
 )
-lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-  vim.lsp.diagnostic.on_publish_diagnostics, {
-    virtual_text = {
-     prefix = "ᗦ",
-    spacing = 4,
-    source = "always",
- },
-    signs = true,
-    update_in_insert = false,
-     severity_sort = true,
-
-    underline = true
-  }
-)
-
-
-
-local signs = { Error = "E", Warning = "W", Hint = "H", Information = "I" }
---local signs = { Error = " ", Warning = " ", Hint = " ", Information = " " }
-
+local signs = {
+  Error = " ",
+  Warn = " ",
+  Hint = " ",
+  Info = " ",
+}
 for type, icon in pairs(signs) do
-  local hl = "LspDiagnosticsSign" .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+  local hl = "DiagnosticSign" .. type
+  fn.sign_define(hl, {
+    text = icon,
+    texthl = hl,
+    numhl = "",
+  })
 end
 
+vim.diagnostic.config {
+  underline = true,
+  signs = true,
+  severity_sort = false,
+  update_in_insert = false,
+  virtual_text = {
+    prefix = "■ ",
+    spacing = 4,
+  },
+}
 local Border = {
 {"╭", "FloatBorder"},
 {"─", "FloatBorder"},

@@ -45,6 +45,8 @@ export PROJ="/home/nerdroid/projects"
 export JAVA_HOME="/usr/lib/jvm/openjdk11"
 export VISUAL=nvim
 export EDITOR="$VISUAL"
+export LIBVA_DRIVER_NAME=i965
+
 
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/scripts:$PATH
