@@ -35,7 +35,7 @@
   let s:base06 = ['#929292', '252']
   let s:base07 = ['#9ab19a', '253'] 
   let s:red    = ['#d88553', '203']
-  let s:orange = ['#f8ab01', '209']
+  let s:orange = ['#fda128', '255']
   let s:yellow = ['#eda622', '221']
   let s:green  = ['#9e9e9e', '114']
   let s:cyan   = ['#5f5f88', '73']

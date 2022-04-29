@@ -12,10 +12,10 @@ lsp.handlers["textDocument/signatureHelp"] = lsp.with(
   }
 )
 local signs = {
-  Error = " ",
-  Warn = " ",
-  Hint = " ",
-  Info = " ",
+  Error = "E ",
+  Warn = "W ",
+  Hint = "H ",
+  Info = "I ",
 }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
@@ -27,14 +27,12 @@ for type, icon in pairs(signs) do
 end
 
 vim.diagnostic.config {
+  virtual_text = false,
   underline = true,
   signs = true,
   severity_sort = false,
   update_in_insert = false,
-  virtual_text = {
-    prefix = "■ ",
-    spacing = 4,
-  },
+
 }
 local Border = {
 {"╭", "FloatBorder"},

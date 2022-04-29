@@ -31,32 +31,5 @@ fi
 	ENV=$HOME/.kshrc		# set ENV if there is an rc file
     export ENV
 fi
-# Styling QT apps with chosen GTK themes:
-#
-# Adwaita themes - install 'adwaita-qt' package, then ...
-#export QT_STYLE_OVERRIDE=Adwaita
-#export QT_STYLE_OVERRIDE=Adwaita-Dark
-#
-# Non-adwaita themes - install 'qt5-style-plugins' package, then ...
-export QT_QPA_PLATFORMTHEME=gtk
-export DOTS="/home/nerdroid/Dotfiles"
-export TERMINAL="urxvt"
-export PROJ="/home/nerdroid/projects"
-export JAVA_HOME="/usr/lib/jvm/openjdk11"
-export VISUAL=nvim
-export EDITOR="$VISUAL"
-export LIBVA_DRIVER_NAME=i965
 
-
-export PATH=$HOME/.cargo/bin:$PATH
-export PATH=$HOME/scripts:$PATH
-export PATH=$HOME/.deno/bin:$PATH
-
-export BROWSER=firefox
-# Add default node to path
-export PATH="$PATH:$(go env GOPATH)/bin"
-# make CapsLock behave like Ctrl:
-setxkbmap -option ctrl:nocaps
-
-# make short-pressed Ctrl behave like Escape:
-xcape -e 'Control_L=Escape'
+iwgtk -i&

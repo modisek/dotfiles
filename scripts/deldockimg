@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+
+podman rmi $(podman images | awk '{print $1}' | fzf --header "available images") 

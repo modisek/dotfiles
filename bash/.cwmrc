@@ -98,11 +98,13 @@ bind-mouse 4-1 window-move
 bind-mouse 4-3 window-resize
 bind-mouse 4-2 window-lower
 bind-mouse 4S-3 window-hide
+# mod + shift + R = restart cwm, reloading configuration
+bind-key 4S-r restart
+# mod + shift + E = log out
+bind-key 4S-e quit
 
 ignore mpv
 ignore menu
 
-command "           terminal -" "uxterm"
-command "            firefox -" "firefox"
-command "            files -" "pcmanfm"
-
+command xterm xterm
+command chromium "chromium "

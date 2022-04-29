@@ -1,11 +1,11 @@
 #!/bin/bash
 
-PICTURE=/tmp/i3lock.png
-SCREENSHOT="scrot $PICTURE"
+PICTURE=/home/kgosi/Pictures/wall1.jpg
+#SCREENSHOT="grim $PICTURE"
 
 BLUR="5x4"
 
-$SCREENSHOT
+#$SCREENSHOT
 convert $PICTURE -blur $BLUR $PICTURE
-i3lock -i $PICTURE
-rm $PICTURE
+swaylock -i $PICTURE
+#rm $PICTURE

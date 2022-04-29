@@ -18,12 +18,12 @@ local config = {
 
   -- This is the default if not provided, you can remove it. Or adjust as needed.
   -- One dedicated LSP server & client will be started per unique root_dir
-  root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'})
+  --root_dir = require('jdtls.setup').find_root({'.git', 'mvnw', 'gradlew'})
 }
 
-vim.api.nvim_exec([[
-			augroup jdtls
-			au!
-			au FileType java lua require('jdtls').start_or_attach({cmd = {'st_j'}})
-            augroup end]],false)
+--vim.api.nvim_exec([[
+--			augroup jdtls
+--			au!
+--			au FileType java lua require('jdtls').start_or_attach({cmd = {'st_j'}})
+ --           augroup end]],false)
 

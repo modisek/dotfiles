@@ -13,7 +13,7 @@ o.foldopen = {"percent", "search",}
 o.swapfile = false
 o.dir = '/tmp'
 o.smartcase = true
-o.laststatus = 2
+o.laststatus = 3
 o.hlsearch = true
 o.incsearch = true
 o.ignorecase = true
@@ -89,38 +89,58 @@ cmd [[
 
 local fn, cmd = vim.fn, vim.cmd
 
-function my_statusline()
-  local branch = fn.FugitiveHead()
+-- function my_statusline()
+--   local branch = fn.FugitiveHead()
+--
+--   if branch and #branch > 0 then
+--     branch = '  '..branch
+--   end
+--
+--   return branch..' %f%m%=%l:%c'
+-- end
+--
+-- cmd[[ set statusline=%!luaeval('my_statusline()') ]] 
+--
 
-  if branch and #branch > 0 then
-    branch = '  '..branch
-  end
-
-  return branch..' %f%m%=%l:%c'
-end
-
-cmd[[ set statusline=%!luaeval('my_statusline()') ]] 
-
-
-local disabled_built_ins = {
-    "gzip",
-    "zip",
-    "zipPlugin",
-    "tar",
-    "tarPlugin",
-    "getscript",
-    "getscriptPlugin",
-    "vimball",
-    "vimballPlugin",
-    "2html_plugin",
-    "logipat",
-    "rrhelper",
-    "spellfile_plugin",
-    "matchit"
-}
-
-for _, plugin in pairs(disabled_built_ins) do
-    vim.g["loaded_" .. plugin] = 1
-end
+-- local disabled_built_ins = {
+--     "gzip",
+--     "zip",
+--     "zipPlugin",
+--     "tar",
+--     "tarPlugin",
+--     "getscript",
+--     "getscriptPlugin",
+--     "vimball",
+--     "vimballPlugin",
+--     "2html_plugin",
+--     "logipat",
+--     "rrhelper",
+--     "spellfile_plugin",
+--     "matchit"
+-- }
+--
+-- for _, plugin in pairs(disabled_built_ins) do
+--     vim.g["loaded_" .. plugin] = 1
+-- end
 
 o.lazyredraw = true
+
+vim.cmd[[set termguicolors]]
+vim.cmd 'au TextYankPost * lua vim.highlight.on_yank {on_visual = false}'
+
+-- change cwd to current directory
+vim.cmd [[cd %:p:h]]
+vim.g.vimwiki_list = {
+            {
+                path = '~/notes',
+                syntax = 'markdown',
+                ext = '.md',
+                path_html = '~/notes/site_html/',
+                custom_wiki2html = 'vimwiki_markdown'
+
+            }
+        }
+
+vim.cmd 'colorscheme luba'
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0 

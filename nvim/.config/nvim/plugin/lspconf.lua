@@ -1,92 +1,84 @@
+
+local fn, lsp = vim.fn, vim.lsp
 local nvim_lsp = require('lspconfig')
-local api = vim.api
-local cwd = vim.loop.cwd
-
-require('modules/handlers')
-
-local mapper = function(mode, key, result)
-  api.nvim_buf_set_keymap(0, mode, key, "<cmd>lua "..result.."<cr>", {noremap = true, silent = true})
-end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
---capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
-capabilities.textDocument.completion.completionItem.documentationFormat = {
-  "markdown",
-}
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.preselectSupport = true
-capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-capabilities.textDocument.completion.completionItem.commitCharactersSupport =
-  true
-capabilities.textDocument.completion.completionItem.tagSupport = {
-  valueSet = { 1 },
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+lsp.handlers["textDocument/hover"] = lsp.with(lsp.handlers.hover, {
+  -- border = Util.borders,
+  border = Border,
+})
+
+lsp.handlers["textDocument/signatureHelp"] = lsp.with(
+  lsp.handlers.signature_help,
+  {
+    border = Border,
+  }
+)
+local signs = {
+  Error = " ",
+  Warn = " ",
+  Hint = " ",
+  Info = "ﳑ ",
 }
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-  properties = {
-    "documentation",
-    "detail",
-    "additionalTextEdits",
-  },
+for type, icon in pairs(signs) do
+  local hl = "DiagnosticSign" .. type
+  fn.sign_define(hl, {
+    text = icon,
+    texthl = hl,
+    numhl = "",
+  })
+end
+
+vim.diagnostic.config {
+  virtual_text = false,
+  underline = true,
+  signs = true,
+  severity_sort = false,
+  update_in_insert = false,
+
 }
 
-local lsp_on_attach = function(client)
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', '<leader>gv', '<Cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  buf_set_keymap('n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<leader>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
- vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-     if client.resolved_capabilities.code_lens then
-    vim.cmd [[
-    augroup CodeLens
-      au!
-      au InsertEnter,InsertLeave * lua vim.lsp.codelens.refresh()
-    augroup END
-    ]]
-  end
-
+  -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
-    vim.cmd [[
-      autocmd CursorHold  <buffer> lua vim.lsp.buf.document_highlight()
-      autocmd CursorHoldI <buffer> lua vim.lsp.buf.document_highlight()
-      autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-    ]]
-end
- if client.config.flags then
-    client.config.flags.allow_incremental_sync = true
+    vim.api.nvim_exec([[
+      hi LspReferenceRead cterm=bold ctermbg=DarkMagenta guibg=LightYellow
+      hi LspReferenceText cterm=bold ctermbg=DarkMagenta guibg=LightYellow
+      hi LspReferenceWrite cterm=bold ctermbg=DarkMagenta guibg=LightYellow
+      augroup lsp_document_highlight
+        autocmd! * <buffer>
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]], false)
   end
-
-  require("modules/mappings").mappings()
-
-
-      -- Use LSP as the handler for formatexpr.
-      --    See `:help formatexpr` for more information.
-vim.api.nvim_buf_set_option(0, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
- 
--- define global function
-_G.lsp_import_on_completion = function()
-    local completed_item = vim.v.completed_item
-    if not (completed_item and completed_item.user_data and
-        completed_item.user_data.nvim and completed_item.user_data.nvim.lsp and
-        completed_item.user_data.nvim.lsp.completion_item) then return end
-
-    local item = completed_item.user_data.nvim.lsp.completion_item
-    local bufnr = vim.api.nvim_get_current_buf()
-    vim.lsp.buf_request(bufnr, "completionItem/resolve", item,
-                    function(_, _, result)
-        if result and result.additionalTextEdits then
-            vim.lsp.util.apply_text_edits(result.additionalTextEdits, bufnr)
-        end
-    end)
-end
-
--- define autocmd to listen for CompleteDone
-vim.api.nvim_exec([[
-augroup LSPImportOnCompletion
-    autocmd!
-    autocmd CompleteDone * lua lsp_import_on_completion()
-augroup END
-]], false)
 end
 
 local lsp_on_init = function(client)
@@ -94,13 +86,12 @@ vim.notify(client.name .. ": Language Server Client successfully started!", "inf
 end
 
 
-vim.cmd [[ autocmd BufWritePre * lua vim.lsp.buf.formatting_sync(nil, 1000)]]
---vim.cmd [[autocmd CursorHold * lua vim.diagnostic.show_line_diagnostics()]]
-
---vim.cmd [[autocmd CursorHoldI * silent! lua vim.lsp.buf.signature_help()]]
+vim.cmd [[ autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 1000)]]
+vim.cmd[[ autocmd BufWritePre *.go lua goimports(1000)]]
+vim.cmd [[autocmd BufWritePre *.go lua vim.lsp.buf.formatting()]]
 
 local servers = {
-    sqls ={},
+    pyright={},
     tsserver ={
         cmd = { "typescript-language-server", "--stdio" },
         filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
@@ -128,36 +119,38 @@ local servers = {
    },
    gopls = {
         cmd = {"gopls", "serve"},
+        capabilities = capabilities,
     settings = {
       gopls = {
+        experimentalPostfixCompletions = true,
         analyses = {
           unusedparams = true,
+          shadow = true,
         },
          codelenses = {
-          generate = true, -- show the `go generate` lens.
-          gc_details = true, --  // Show a code lens toggling the display of gc's choices.
+          generate = false, -- show the `go generate` lens.
+          gc_details = false, --  // Show a code lens toggling the display of gc's choices.
           test = true,
           tidy = true
         },
         usePlaceholders = true,
         completeUnimported = true,
         staticcheck = true,
-        matcher = "fuzzy",
-        diagnosticsDelay = "500ms",
-        experimentalWatchedFileDelay = "1000ms",
-        symbolMatcher = "fuzzy",
+       -- matcher = "fuzzy",
+        --diagnosticsDelay = "500ms",
+        --experimentalWatchedFileDelay = "1000ms",
+        --symbolMatcher = "fuzzy",
         gofumpt = false, -- true, -- turn on for new repos, gofmpt is good but also create code turmoils
         buildFlags = {"-tags", "integration"}
         -- buildFlags = {"-tags", "functional"}
       },
-        staticcheck = true,
       },
       flags = {allow_incremental_sync = true, debounce_text_changes = 150},
     },
-          html = {
+    html = {
         cmd = { "vscode-html-language-server", "--stdio" },
       },
-  cssls = {
+    cssls = {
     cmd = { "vscode-css-language-server", "--stdio" },
       },
 
@@ -171,7 +164,7 @@ for name, opts in pairs(servers) do
     local client = nvim_lsp[name]
     client.setup(vim.tbl_extend("force", {
       flags = { debounce_text_changes = 150 },
-      on_attach = lsp_on_attach,
+      on_attach = on_attach,
       on_init = lsp_on_init,
       capabilities = capabilities,
     }, opts))

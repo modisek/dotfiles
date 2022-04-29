@@ -18,13 +18,13 @@ vim.g.mapleader =","
 
 --map('n', '<leader>n', '<cmd>NERDTreeToggle<CR>')
 --map('n', '<leader>m', '<cmd>Files<CR>')
-map('n', '<leader>g', '<cmd>Commits<CR>')
-map('n', 's', '<cmd>Buffers<CR>')
+--map('n', '<leader>g', '<cmd>Commits<CR>')
+--map('n', 's', '<cmd>Buffers<CR>')
 
 
 
 --map('n', '<leader>n' , ':NvimTreeToggle<CR>')
-map('n', '<leader>r' , ':NvimTreeFindFile<CR>')
+-- map('n', '<leader>r' , ':NvimTreeFindFile<CR>')
 --map('n', '//', '<cmd>BLines<CR>')
 map('i', '<up>', '<nop>')
 map('i', '<down>', '<nop>')
@@ -37,13 +37,6 @@ map('n', '<right>', '<nop>')
 --map('n', '<leader>ff', '<cmd>Neoformat<CR>')
 --map('i', '<leader>ff', '<cmd>Neoformat<CR>')
 
---Todo:fix the mess
-
--- vim.cmd("inoremap <silent><expr> <C-Space> compe#complete()")
--- vim.cmd("inoremap <silent><expr> <CR>      compe#confirm('<CR>')")
--- vim.cmd("inoremap <silent><expr> <C-e>     compe#close('<C-e>')")
--- vim.cmd("inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })")
--- vim.cmd("inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })")
 vim.cmd("nnoremap <A-CR> <Cmd>lua require('jdtls').code_action()<CR>")
 vim.cmd("vnoremap <A-CR> <Esc><Cmd>lua require('jdtls').code_action(true)<CR>")
 vim.cmd("nnoremap <leader>rf <Cmd>lua require('jdtls').code_action(false, 'refactor')<CR>")
@@ -56,9 +49,9 @@ vim.cmd [[
 ]]
 
 
-vim.cmd[[
-nnoremap Y y$
-]]
+-- vim.cmd[[
+-- nnoremap Y y$
+-- ]]
 
 
 vim.cmd[[
@@ -102,16 +95,18 @@ nmap <silent> <Leader>t :tabe %<CR>
 ]]
 
 --TODO:find buffer lines thingy
-vim.cmd [[
-nnoremap <leader>n <cmd>Telescope find_files<cr>
-nnoremap <leader>m <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+vim.api.nvim_set_keymap('n', '<leader>n',
+    "<cmd>lua require('fzf-lua').files()<CR>",
+    { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>m',
+    "<cmd>lua require('fzf-lua').lsp_document_diagnostics()<CR>",
+    { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>/',
+    "<cmd>lua require('fzf-lua').blines()<CR>",
+    { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>pp',
+    "<cmd>lua require('fzf-lua').lsp_code_actions()<CR>",
+    { noremap = true, silent = true })
 
 
-]]
-
---TODO:replace lspsaga with telescope
-vim.cmd[[
-nnoremap <Leader>pp :lua require'telescope.builtin'.lsp_code_action()
-]]

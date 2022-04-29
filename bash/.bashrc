@@ -1,19 +1,17 @@
-#export LIBSEAT_BACKEND=logind
-#export MOZ_ENABLE_WAYLAND=1
 export PGDATA=/home/postgres 
 export QT_QPA_PLATFORMTHEME=gtk
-export DOTS="/home/nerdroid/Dotfiles"
-export TERMINAL="urxvt"
-export PROJ="/home/nerdroid/Projects"
 export JAVA_HOME="/usr/lib/jvm/openjdk11"
 export VISUAL=nvim
 export EDITOR="$VISUAL"
-
 export PATH=$HOME/.cargo/bin:$PATH
 export PATH=$HOME/dotfiles/scripts:$PATH
 export PATH=$HOME/.deno/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/go/bin:$PATH
 export LIBVA_DRIVER_NAME=i965
-
+export XDG_CURRENT_DESKTOP=sway
+export GTK_USE_PORTAL=0
+export GOPATH=$HOME/go
 
 export BROWSER=firefox
 
@@ -60,8 +58,6 @@ shopt -s autocd
 # match all files and zero or more directories and subdirectories.
 shopt -s globstar
 
-shopt -s cdspell
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 
 HISTCONTROL=ignoreboth
 HISTSIZE=10000
@@ -91,7 +87,7 @@ fi
 
 if [ "$color_prompt" = yes ]; then
     #PS1="\[\033[0;31m\]\342\224\214\342\224\200\$([[ \$? != 0 ]] && echo \"[\[\033[0;31m\]\342\234\227\[\033[0;37m\]]\342\224\200\")[$(if [[ ${EUID} == 0 ]]; then echo '\[\033[01;31m\]root\[\033[01;33m\]@\[\033[01;96m\]\h'; else echo '\[\033[0;39m\]\u\[\033[01;33m\]@\[\033[01;96m\]\h'; fi)\[\033[0;31m\]]\342\224\200[\[\033[0;32m\]\w\[\033[0;31m\]]\n\[\033[0;31m\]\342\224\224\342\224\200\342\224\200\342\225\274 \[\033[0m\]\[\e[01;33m\]\\$\[\e[0m\]"
-    PS1='${debian_chroot:+($debian_chroot)}kgosi\[\033[01;34m\]\w\[\033[00m\] ⌾ '
+    PS1='${debian_chroot:+($debian_chroot)}kgosi\[\033[01;34m\]\w\[\033[00m\] '
     #PS1='\[\033[01;33m\][\W]─$(__git_ps1 "(%s)")── ─\[\033[00m\] '
 
 else
@@ -166,26 +162,7 @@ bind Space:magic-space
 export FZF_DEFAULT_COMMAND='ag -l --path-to-ignore ~/.ignore --nocolor --hidden -g ""'
 #colorscript exec alpha
 
-export PATH=~/.nvm/versions/node/v16.5.0/bin:$PATH
-# Load NVM
-# Defer initialization of nvm until nvm, node or a node-dependent command is
-# run. Ensure this block is only run once if .bashrc gets sourced multiple times
-# by checking whether __init_nvm is a function.
-# if [ -s "$HOME/.nvm/nvm.sh" ] && [ ! "$(type -t __init_nvm)" = function ]; then
-#   export NVM_DIR="$HOME/.nvm"
-#   [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"
-#   declare -a __node_commands=('nvm' 'node' 'npm' 'yarn' 'gulp' 'grunt' 'webpack')
-#   function __init_nvm() {
-#     for i in "${__node_commands[@]}"; do unalias $i; done
-#     . "$NVM_DIR"/nvm.sh
-#     unset __node_commands
-#     unset -f __init_nvm
-#   }
-#   for i in "${__node_commands[@]}"; do alias $i='__init_nvm && '$i; done
-# fi
 
-# Generated for envman. Do not edit.
-[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 eval "$(zoxide init bash)"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
@@ -193,3 +170,76 @@ export SDKMAN_DIR="/home/kgosi/.sdkman"
 [[ -s "/home/kgosi/.sdkman/bin/sdkman-init.sh" ]] && source "/home/kgosi/.sdkman/bin/sdkman-init.sh"
 
 complete -C /usr/bin/terraform terraform
+###-begin-npm-completion-###
+#
+# npm command completion script
+#
+# Installation: npm completion >> ~/.bashrc  (or ~/.zshrc)
+# Or, maybe: npm completion > /usr/local/etc/bash_completion.d/npm
+#
+
+if type complete &>/dev/null; then
+  _npm_completion () {
+    local words cword
+    if type _get_comp_words_by_ref &>/dev/null; then
+      _get_comp_words_by_ref -n = -n @ -n : -w words -i cword
+    else
+      cword="$COMP_CWORD"
+      words=("${COMP_WORDS[@]}")
+    fi
+
+    local si="$IFS"
+    if ! IFS=$'\n' COMPREPLY=($(COMP_CWORD="$cword" \
+                           COMP_LINE="$COMP_LINE" \
+                           COMP_POINT="$COMP_POINT" \
+                           npm completion -- "${words[@]}" \
+                           2>/dev/null)); then
+      local ret=$?
+      IFS="$si"
+      return $ret
+    fi
+    IFS="$si"
+    if type __ltrim_colon_completions &>/dev/null; then
+      __ltrim_colon_completions "${words[cword]}"
+    fi
+  }
+  complete -o default -F _npm_completion npm
+elif type compdef &>/dev/null; then
+  _npm_completion() {
+    local si=$IFS
+    compadd -- $(COMP_CWORD=$((CURRENT-1)) \
+                 COMP_LINE=$BUFFER \
+                 COMP_POINT=0 \
+                 npm completion -- "${words[@]}" \
+                 2>/dev/null)
+    IFS=$si
+  }
+  compdef _npm_completion npm
+elif type compctl &>/dev/null; then
+  _npm_completion () {
+    local cword line point words si
+    read -Ac words
+    read -cn cword
+    let cword-=1
+    read -l line
+    read -ln point
+    si="$IFS"
+    if ! IFS=$'\n' reply=($(COMP_CWORD="$cword" \
+                       COMP_LINE="$line" \
+                       COMP_POINT="$point" \
+                       npm completion -- "${words[@]}" \
+                       2>/dev/null)); then
+
+      local ret=$?
+      IFS="$si"
+      return $ret
+    fi
+    IFS="$si"
+  }
+  compctl -K _npm_completion npm
+fi
+###-end-npm-completion-###
+
+# BEGIN_KITTY_SHELL_INTEGRATION
+if test -n "$KITTY_INSTALLATION_DIR" -a -e "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; then source "$KITTY_INSTALLATION_DIR/shell-integration/bash/kitty.bash"; fi
+# END_KITTY_SHELL_INTEGRATION

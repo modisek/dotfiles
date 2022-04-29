@@ -1,73 +1,159 @@
-  local lspkind = require('lspkind')
-local cmp = require'cmp'
-cmp.setup {
-  formatting = {
-    format = function(entry, vim_item)
-      vim_item.kind = lspkind.presets.default[vim_item.kind]
-      return vim_item
-    end
-  }
+
+local function prequire(...)
+local status, lib = pcall(require, ...)
+if (status) then return lib end
+    return nil
+end
+local cmp = prequire "cmp"
+if not cmp then
+    return
+end
+
+-- Utils
+local check_backspace = function()
+    local col = vim.fn.col "." - 1
+    return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
+end
+
+local lsp_symbols = {
+    Text = "   (Text) ",
+    Method = "   (Method)",
+    Function = "   (Function)",
+    Constructor = "   (Constructor)",
+    Field = " ﴲ  (Field)",
+    Variable = "[] (Variable)",
+    Class = "   (Class)",
+    Interface = " ﰮ  (Interface)",
+    Module = "   (Module)",
+    Property = " 襁 (Property)",
+    Unit = "   (Unit)",
+    Value = "   (Value)",
+    Enum = " 練 (Enum)",
+    Keyword = "   (Keyword)",
+    Snippet = "   (Snippet)",
+    Color = "   (Color)",
+    File = "   (File)",
+    Reference = "   (Reference)",
+    Folder = "   (Folder)",
+    EnumMember = "   (EnumMember)",
+    Constant = " ﲀ  (Constant)",
+    Struct = " ﳤ  (Struct)",
+    Event = "   (Event)",
+    Operator = "   (Operator)",
+    TypeParameter = "   (TypeParameter)",
 }
 
-
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body)
-      end,
-    },
-  documentation = {
-    border = "solid",
-  },
-   mapping = {
-    ["<S-TAB>"]   = cmp.mapping.select_prev_item(),
-    ["<TAB>"]     = cmp.mapping.select_next_item(),
-    ["<C-Space>"] = cmp.mapping.complete(),
-    ["<C-e>"]     = cmp.mapping.close(),
-    ["<CR>"]      = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Insert,
-      select = true,
-    },
-  },
+cmp.setup {
+    confirmation = { default_behaviour = cmp.ConfirmBehavior.Replace },
     sources = {
-
-      { name = 'nvim_lsp' },
-      { name = 'path' },
-      { name = 'vsnip'},   
-      { name = 'buffer', keyword_length = 3 },
-     
+        { name = "nvim_lsp", priority = 8 },
+        { name = "cmp_tabnine", priority = 8, max_item_count = 3 },
+        { name = "treesitter", priority = 7 },
+        { name = "buffer", priority = 7, keyword_length = 5 },
+        { name = "nvim_lua", priority = 5 },
+        { name = "luasnip", priority = 5 },
+        { name = "copilot", priority = 5, max_item_count = 3 },
+        { name = "path", priority = 4 },
     },
-      formatting = {
-    format = lspkind.cmp_format {
-      with_text = true,
-      menu = {
-        buffer = "[buf]",
-        nvim_lsp = "[LSP]",
-        path = "[path]",
-        vsnip  = "[vsnip]",
-   
-      },
+
+    sorting = {
+        priority_weight = 1.0,
+        comparators = {
+            cmp.config.compare.locality,
+            cmp.config.compare.recently_used,
+            cmp.config.compare.score,
+            cmp.config.compare.offset,
+            cmp.config.compare.order,
+        },
     },
-  },
 
-  experimental = {
-    -- I like the new menu better! Nice work hrsh7th
-    native_menu = false,
+    mapping = {
+        ["<CR>"] = cmp.mapping.confirm { select = true },
+        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-f>"] = cmp.mapping.scroll_docs(4),
+        ["<C-p>"] = cmp.mapping.select_prev_item { behavior = cmp.SelectBehavior.Select },
+        ["<C-n>"] = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Select },
+        ["<C-e>"] = cmp.mapping {
+            i = cmp.mapping.abort(),
+            c = cmp.mapping.close(),
+        },
+        ["<Tab>"] = cmp.mapping(function(fallback)
+            local luasnip = require "luasnip"
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif luasnip.expandable() then
+                luasnip.expand()
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+            elseif check_backspace() then
+                fallback()
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
 
-    -- Let's play with this for a day or two
-    ghost_text = true,
-  },
-  })
---   require('nvim-autopairs').setup{}
---   require("nvim-autopairs.completion.cmp").setup({
---   map_cr = true, --  map <CR> on insert mode
---   map_complete = true, -- it will auto insert `(` (map_char) after select function or method item
---   auto_select = true, -- automatically select the first item
---   insert = false, -- use insert confirm behavior instead of replace
---   map_char = { -- modifies the function or method delimiter by filetypes
---     all = '(',
---     tex = '{'
---   }
--- })
-
-require('nvim-autopairs').setup{}
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+            local luasnip = require "luasnip"
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif luasnip.expandable() then
+                luasnip.expand()
+            elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+            elseif check_backspace() then
+                fallback()
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
+    },
+    formatting = {
+        format = function(entry, item)
+            item.kind = lsp_symbols[item.kind]
+            if entry.source.name == "cmp_tabnine" then
+                item.kind = "   (TabNine)"
+                if entry.completion_item.data ~= nil and entry.completion_item.data.detail ~= nil then
+                    item.kind = "   (" .. entry.completion_item.data.detail .. ")"
+                end
+            end
+            item.menu = ({
+                buffer = "[Buffer]",
+                cmp_tabnine = "[T9]",
+                nvim_lsp = "[LSP]",
+                nvim_lua = "[NLUA]",
+                treesitter = "[TS]",
+                path = "[Path]",
+                luasnip = "[Snippet]",
+                copilot = "[CoPilot]",
+            })[entry.source.name]
+            return item
+        end,
+    },
+    snippet = {
+        expand = function(args)
+            local luasnip = prequire "luasnip"
+            if not luasnip then
+                return
+            end
+            luasnip.lsp_expand(args.body)
+        end,
+    },
+    window = {
+        completion = {
+            border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+            scrollbar = "║",
+            autocomplete = {
+                require("cmp.types").cmp.TriggerEvent.InsertEnter,
+                require("cmp.types").cmp.TriggerEvent.TextChanged,
+            },
+        },
+        documentation = {
+            border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+            winhighlight = "NormalFloat:NormalFloat,FloatBorder:FloatBorder",
+            scrollbar = "║",
+        },
+    },
+    experimental = {
+        ghost_text = true,
+    },
+}

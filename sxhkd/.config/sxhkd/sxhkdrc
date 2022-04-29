@@ -1,6 +1,8 @@
 # terminal emulator
 shift + Return
- uxterm
+ uxterm -e tmx1
+ 
+
 
 super + y
  ytt.sh
