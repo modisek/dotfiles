@@ -13,7 +13,6 @@ o.foldopen = {"percent", "search",}
 o.swapfile = false
 o.dir = '/tmp'
 o.smartcase = true
-o.laststatus = 3
 o.hlsearch = true
 o.incsearch = true
 o.ignorecase = true
@@ -53,7 +52,6 @@ api.nvim_command('inoremap <expr> <Tab>   pumvisible() ? "<C-n>" : "<Tab>"')
 api.nvim_command('inoremap <expr> <S-Tab> pumvisible() ? "<C-p>" : "<S-Tab>"')
 --" Avoid showing message extra message when using completion
 api.nvim_command('set shortmess+=c')
--- i couldn't figure out how to set the colorscheme in lua
 cmd('syntax on')
 o.background = 'dark'
 g.pumheight = 10
@@ -67,61 +65,32 @@ o.relativenumber = true
 --
 o.expandtab = true
 
-
-
-
 cmd('au BufNewFile,BufRead * if &ft == "" | set ft=text | endif')
 
 cmd('au FocusLost * :wa')
-
-cmd [[
-   if exists('$TMUX')
-
-    " Colors in tmux
-
-    let &t_8f = "<Esc>[38;2;%lu;%lu;%lum"
-
-    let &t_8b = "<Esc>[48;2;%lu;%lu;%lum"
-
-    endif
-
-]]
-
 local fn, cmd = vim.fn, vim.cmd
 
--- function my_statusline()
---   local branch = fn.FugitiveHead()
---
---   if branch and #branch > 0 then
---     branch = '  '..branch
---   end
---
---   return branch..' %f%m%=%l:%c'
--- end
---
--- cmd[[ set statusline=%!luaeval('my_statusline()') ]] 
---
 
--- local disabled_built_ins = {
---     "gzip",
---     "zip",
---     "zipPlugin",
---     "tar",
---     "tarPlugin",
---     "getscript",
---     "getscriptPlugin",
---     "vimball",
---     "vimballPlugin",
---     "2html_plugin",
---     "logipat",
---     "rrhelper",
---     "spellfile_plugin",
---     "matchit"
--- }
---
--- for _, plugin in pairs(disabled_built_ins) do
---     vim.g["loaded_" .. plugin] = 1
--- end
+local disabled_built_ins = {
+    "gzip",
+    "zip",
+    "zipPlugin",
+    "tar",
+    "tarPlugin",
+    "getscript",
+    "getscriptPlugin",
+    "vimball",
+    "vimballPlugin",
+    "2html_plugin",
+    "logipat",
+    "rrhelper",
+    "spellfile_plugin",
+    "matchit"
+}
+
+for _, plugin in pairs(disabled_built_ins) do
+    vim.g["loaded_" .. plugin] = 1
+end
 
 o.lazyredraw = true
 
@@ -141,6 +110,5 @@ vim.g.vimwiki_list = {
             }
         }
 
-vim.cmd 'colorscheme luba'
 vim.g.do_filetype_lua = 1
 vim.g.did_load_filetypes = 0 

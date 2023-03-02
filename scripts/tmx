@@ -1,7 +1,4 @@
 #!/usr/bin/env bash
-
-
-
 SESSION=${PWD##*/}
 
 SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
@@ -9,8 +6,9 @@ SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
 if ["$SESSIONEXISTS" = ""]
 then
     tmux new -s $SESSION -d
+    tmux rename-window $SESSION
     tmux send-keys -t $SESSION 'vim .' C-m
-    tmux split-window -h -t $SESSION
+    tmux split-window -v -t $SESSION
     tmux attach -t $SESSION
 else
     tmux attach -t $SESSION

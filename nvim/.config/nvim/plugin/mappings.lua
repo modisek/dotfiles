@@ -2,7 +2,7 @@ local cmd = vim.cmd  -- to execute Vim commands e.g. cmd('pwd')
 local fn = vim.fn    -- to call Vim functions e.g. fn.bufnr()
 local g = vim.g      -- a table to access global variables
 local scopes = {o = vim.o, b = vim.bo, w = vim.wo}
-
+local keymap = vim.keymap
 local function opt(scope, key, value)
   scopes[scope][key] = value
   if scope ~= 'o' then scopes['o'][key] = value end
@@ -16,14 +16,17 @@ end
 vim.g.mapleader ="," 
 -- fzf
 
---map('n', '<leader>n', '<cmd>NERDTreeToggle<CR>')
---map('n', '<leader>m', '<cmd>Files<CR>')
---map('n', '<leader>g', '<cmd>Commits<CR>')
+keymap.set('n', '+', '<C-a>')
+keymap.set('n', '-', '<C-x>')
+keymap.set('n', 'dw', 'vb"_d')
+
+map('n', '<leader>f', '<cmd>NvimTreeToggle<CR>')
+--map('n', '<leader>b', '<cmd>Files<CR>')
+--map('n', '<leader>c', '<cmd>Commits<CR>')
 --map('n', 's', '<cmd>Buffers<CR>')
 
 
 
---map('n', '<leader>n' , ':NvimTreeToggle<CR>')
 -- map('n', '<leader>r' , ':NvimTreeFindFile<CR>')
 --map('n', '//', '<cmd>BLines<CR>')
 map('i', '<up>', '<nop>')
@@ -96,14 +99,12 @@ nmap <silent> <Leader>t :tabe %<CR>
 
 --TODO:find buffer lines thingy
 
-vim.api.nvim_set_keymap('n', '<leader>n',
-    "<cmd>lua require('fzf-lua').files()<CR>",
-    { noremap = true, silent = true })
+keymap.set('n', '<leader>n', "<cmd> lua require('telescope.builtin').find_files()<CR>")
 vim.api.nvim_set_keymap('n', '<leader>m',
-    "<cmd>lua require('fzf-lua').lsp_document_diagnostics()<CR>",
+    "<cmd>lua require('telescope.builtin').diagnostics()<CR>",
     { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>/',
-    "<cmd>lua require('fzf-lua').blines()<CR>",
+    "<cmd>lua require('telescope.builtin').current_buffer_fuzzy_find()<CR>",
     { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>pp',
     "<cmd>lua require('fzf-lua').lsp_code_actions()<CR>",

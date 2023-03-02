@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+SELECTED=$(find ~/Videos/ ~/Downloads -maxdepth 3 -name '*mkv' -o -name '*.mp4' | fzf --header=movies --cycle --border=rounded)
+
+ flatpak run io.mpv.Mpv  "$SELECTED"
+

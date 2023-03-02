@@ -1,10 +1,12 @@
 
 local fn, lsp = vim.fn, vim.lsp
+require("mason").setup()
+require("mason-lspconfig").setup{ensure_installed = { "bashls", "gopls", "tsserver", "denols", "tailwindcss", "svelte", "html", "cssls", "pyright" }}
 local nvim_lsp = require('lspconfig')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -23,10 +25,10 @@ lsp.handlers["textDocument/signatureHelp"] = lsp.with(
   }
 )
 local signs = {
-  Error = " ",
-  Warn = " ",
-  Hint = " ",
-  Info = "ﳑ ",
+  Error = "E ",
+  Warn = "W ",
+  Hint = "H ",
+  Info = "I ",
 }
 for type, icon in pairs(signs) do
   local hl = "DiagnosticSign" .. type
@@ -38,7 +40,7 @@ for type, icon in pairs(signs) do
 end
 
 vim.diagnostic.config {
-  virtual_text = false,
+  virtual_text = true,
   underline = true,
   signs = true,
   severity_sort = false,
@@ -67,7 +69,7 @@ vim.diagnostic.config {
 
 
   -- Set autocommands conditional on server_capabilities
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.document_highlight then
     vim.api.nvim_exec([[
       hi LspReferenceRead cterm=bold ctermbg=DarkMagenta guibg=LightYellow
       hi LspReferenceText cterm=bold ctermbg=DarkMagenta guibg=LightYellow
@@ -89,18 +91,30 @@ end
 vim.cmd [[ autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 1000)]]
 vim.cmd[[ autocmd BufWritePre *.go lua goimports(1000)]]
 vim.cmd [[autocmd BufWritePre *.go lua vim.lsp.buf.formatting()]]
+vim.cmd [[autocmd BufWritePre *.js lua vim.lsp.buf.formatting()]]
 
 local servers = {
-    pyright={},
-    tsserver ={
+    tsserver = {
         cmd = { "typescript-language-server", "--stdio" },
         filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
-        init_options = {
-            hostInfo = "neovim"
-          },
-    -- root_dir = root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git")
+      root_dir = nvim_lsp.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+    init_options =
+
+{
+  hostInfo = "neovim"
+}
     },
-    terraformls={
+      denols = {
+          cmd = { "deno", "lsp" },
+          filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+          root_dir = nvim_lsp.util.root_pattern('deno.json'),
+         init_options = {
+   enable = true,
+    unstable = false
+  },
+  },
+    pyright={},
+        terraformls={
             cmd = { "terraform-ls", "serve" },
             filetypes = { "terraform" }
     },
@@ -109,6 +123,31 @@ local servers = {
         cmd = { "svelteserver", "--stdio" },
     filetypes = { "svelte" },
     --root_dir = root_pattern("package.json", ".git")
+    },
+    tailwindcss={
+        cmd = { "tailwindcss-language-server", "--stdio" },
+        filetypes ={ "aspnetcorerazor", "astro", "astro-markdown", "blade", "django-html", "htmldjango", "edge", "eelixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte" },
+        init_options ={
+             userLanguages = {
+    eelixir = "html-eex",
+    eruby = "erb"
+  }
+        },
+        settings = {
+  tailwindCSS = {
+    classAttributes = { "class", "className", "classList", "ngClass" },
+    lint = {
+      cssConflict = "warning",
+      invalidApply = "error",
+      invalidConfigPath = "error",
+      invalidScreen = "error",
+      invalidTailwindDirective = "error",
+      invalidVariant = "error",
+      recommendedVariantOrder = "warning"
+    },
+    validate = true
+  }
+}
     },
    bashls ={
        cmd = { "bash-language-server", "start" },
@@ -153,9 +192,22 @@ local servers = {
     cssls = {
     cmd = { "vscode-css-language-server", "--stdio" },
       },
+    markdown = {
+    cmd = { "vscode-markdown-language-server", "--stdio" },
+      },
+json= {
+    cmd = { "vscode-json-language-server", "--stdio" },
+      },
+eslint = {
+    cmd = { "vscode-eslint-language-server", "--stdio" },
+      },
 
 
-}
+
+        }
+
+
+
 
 for name, opts in pairs(servers) do
   if type(opts) == "function" then

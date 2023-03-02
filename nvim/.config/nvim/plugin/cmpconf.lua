@@ -5,10 +5,11 @@ if (status) then return lib end
     return nil
 end
 local cmp = prequire "cmp"
+local luasnip = prequire "luasnip"
+
 if not cmp then
     return
 end
-
 -- Utils
 local check_backspace = function()
     local col = vim.fn.col "." - 1
@@ -47,12 +48,10 @@ cmp.setup {
     confirmation = { default_behaviour = cmp.ConfirmBehavior.Replace },
     sources = {
         { name = "nvim_lsp", priority = 8 },
-        { name = "cmp_tabnine", priority = 8, max_item_count = 3 },
         { name = "treesitter", priority = 7 },
-        { name = "buffer", priority = 7, keyword_length = 5 },
+        { name = "buffer", priority = 7, keyword_length = 3 },
         { name = "nvim_lua", priority = 5 },
         { name = "luasnip", priority = 5 },
-        { name = "copilot", priority = 5, max_item_count = 3 },
         { name = "path", priority = 4 },
     },
 
@@ -157,3 +156,9 @@ cmp.setup {
         ghost_text = true,
     },
 }
+local keymap = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+keymap("i", "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", opts)
+keymap("s", "<c-j>", "<cmd>lua require'luasnip'.jump(1)<CR>", opts)
+keymap("i", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)
+keymap("s", "<c-k>", "<cmd>lua require'luasnip'.jump(-1)<CR>", opts)

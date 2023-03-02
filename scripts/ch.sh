@@ -1,3 +1,3 @@
-chromium --ozone-platform-hint=auto
+flatpak run com.google.Chrome --ozone-platform-hint=auto
 
 
