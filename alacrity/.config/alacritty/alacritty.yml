@@ -1,7 +1,7 @@
 window:
   padding:
     x: 4
-    y: 4 
+    y: 4
 env:
   TERM: alacritty
 
@@ -10,55 +10,37 @@ font:
     family: JetBrainsMono
   size: 12
 
-
-  
 draw_bold_text_with_bright_colors: false
 
-# Base16 Eighties 256 - alacritty color config
-# Chris Kempson (http://chriskempson.com)
-# Base16 Black Metal 256 - alacritty color config
-# metalelf0 (https://github.com/metalelf0)
 colors:
-  # Default colors
   primary:
-    background: '0x000000'
-    foreground: '0xc1c1c1'
-
-  # Colors the cursor will use if `custom_cursor_colors` is true
-  cursor:
-    text: '0x000000'
-    cursor: '0xc1c1c1'
-
-  # Normal colors
+    background: "#161616"
+    foreground: "#ffffff"
+  search:
+    matches:
+      foreground: CellBackground
+      background: "#ee5396"
+    footer_bar:
+      background: "#262626"
+      foreground: "#ffffff"
   normal:
-    black:   '0x000000'
-    red:     '0x5f8787'
-    green:   '0xdd9999'
-    yellow:  '0xa06666'
-    blue:    '0x888888'
-    magenta: '0x999999'
-    cyan:    '0xaaaaaa'
-    white:   '0xc1c1c1'
-
-  # Bright colors
+    black: "#262626"
+    magenta: "#ff7eb6"
+    green: "#42be65"
+    yellow: "#ffe97b"
+    blue: "#33b1ff"
+    red: "#ee5396"
+    cyan: "#3ddbd9"
+    white: "#dde1e6"
   bright:
-    black:   '0x333333'
-    red:     '0x5f8787'
-    green:   '0xdd9999'
-    yellow:  '0xa06666'
-    blue:    '0x888888'
-    magenta: '0x999999'
-    cyan:    '0xaaaaaa'
-    white:   '0xc1c1c1'
-
-  indexed_colors:
-    - { index: 16, color: '0xaaaaaa' }
-    - { index: 17, color: '0x444444' }
-    - { index: 18, color: '0x121212' }
-    - { index: 19, color: '0x222222' }
-    - { index: 20, color: '0x999999' }
-    - { index: 21, color: '0x999999' }
-
+    black: "#393939"
+    magenta: "#ff7eb6"
+    green: "#42be65"
+    yellow: "#ffe97b"
+    blue: "#33b1ff"
+    red: "#ee5396"
+    cyan: "#3ddbd9"
+    white: "#ffffff"
 selection:
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
   save_to_clipboard: false
@@ -87,4 +69,3 @@ mouse:
   triple_click: { threshold: 300 }
 
   hide_when_typing: true
-
