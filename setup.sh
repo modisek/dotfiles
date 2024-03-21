@@ -1,3 +1,4 @@
 #!/bin/bash
+sudo apt install stow
 
-stow tmux/  nvim/ sxhkd/ zathura/ bash/ dunst/ mpd/ ncmpcpp/ mpv/ 
+stow tmux/  nvim/  bash/
