@@ -28,6 +28,7 @@ end
 
 vim.diagnostic.config {
   virtual_text = false,
+  virtual_lines = true,
   underline = true,
   signs = true,
   severity_sort = false,

@@ -11,7 +11,20 @@
   endif
   let g:colors_name="luba"
 " }}}
-"
+"{{{ Italics                                                                      │  8 "
+ 16   let g:oceanic_next_terminal_italic = get(g:, 'oceanic_next_terminal_italic', 0)  │  7 "" {{{ Colors
+ 15   let s:italic = ""                                                                │  6   let s:base00 = ['#262626', '235']
+ 14   if g:oceanic_next_terminal_italic == 1                                           │  5   let s:base01 = ['#323232', '237']
+ 13     let s:italic = "italic"                                                        │  4   let s:base02 = ['#424242', '240']
+ 12   endif                                                                            │  3   let s:base03 = ['#525252', '243']
+ 11 "}}}                                                                               │  2   let s:base04 = ['#626262', '145']
+ 10 " {{{ Bold                                                                         │  1   let s:base05 = ['#727272', '251']
+  9   let g:oceanic_next_terminal_bold = get(g:, 'oceanic_next_terminal_bold', 0)      │22    let s:base06 = ['#929292', '252']
+  8   let s:bold = ""                                                                  │  1   let s:base07 = ['#9ab19a', '253']·
+  7   if g:oceanic_next_terminal_bold == 1                                             │  2   let s:red    = ['#d88553', '203']
+  6    let s:bold = "bold"                                                             │  3   let s:orange = ['#f8ab01', '209']
+  5   endif                                                                            │  4   let s:yellow = ['#eda622', '221']
+  4 "}}}
 "" {{{ Colors
   let s:base00 = ['#262626', '235']
   let s:base01 = ['#323232', '237']

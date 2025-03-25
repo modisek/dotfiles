@@ -1,7 +1,7 @@
 
 local fn, lsp = vim.fn, vim.lsp
 require("mason").setup()
-require("mason-lspconfig").setup{ensure_installed = { "bashls", "gopls", "tsserver", "denols", "tailwindcss", "svelte", "html", "cssls", "pyright" }}
+require("mason-lspconfig").setup{ensure_installed = { "bashls", "gopls", "typescript-language-server", "denols", "tailwindcss", "svelte", "html", "cssls", "pyright" }}
 local nvim_lsp = require('lspconfig')
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -94,7 +94,7 @@ vim.cmd [[autocmd BufWritePre *.go lua vim.lsp.buf.formatting()]]
 vim.cmd [[autocmd BufWritePre *.js lua vim.lsp.buf.formatting()]]
 
 local servers = {
-    tsserver = {
+    ts_ls = {
         cmd = { "typescript-language-server", "--stdio" },
         filetypes = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
       root_dir = nvim_lsp.util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
@@ -192,12 +192,7 @@ local servers = {
     cssls = {
     cmd = { "vscode-css-language-server", "--stdio" },
       },
-    markdown = {
-    cmd = { "vscode-markdown-language-server", "--stdio" },
-      },
-json= {
-    cmd = { "vscode-json-language-server", "--stdio" },
-      },
+  
 eslint = {
     cmd = { "vscode-eslint-language-server", "--stdio" },
       },
